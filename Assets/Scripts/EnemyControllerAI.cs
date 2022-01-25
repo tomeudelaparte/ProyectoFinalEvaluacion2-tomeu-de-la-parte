@@ -11,7 +11,7 @@ public class EnemyControllerAI : MonoBehaviour
 
     private Vector3 directionToPlayer, newPosition;
 
-    private float playerDetectionDistance = 250f;
+    private float playerDetectionDistance = 300f;
 
     void Start()
     {
@@ -25,7 +25,7 @@ public class EnemyControllerAI : MonoBehaviour
     {
         float distance = Vector3.Distance(transform.position, player.transform.position);
 
-        if (distance < playerDetectionDistance && distance >= 150)
+        if (distance < playerDetectionDistance && distance >= 100)
         {
             directionToPlayer = transform.position - player.transform.position;
 

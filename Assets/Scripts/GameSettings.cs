@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameSettings : MonoBehaviour
 {
@@ -9,5 +10,14 @@ public class GameSettings : MonoBehaviour
         Screen.lockCursor = true;
 
         Application.targetFrameRate = 60;
+    }
+
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
+        }
     }
 }
