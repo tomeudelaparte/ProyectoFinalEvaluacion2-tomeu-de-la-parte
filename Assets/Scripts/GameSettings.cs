@@ -17,6 +17,7 @@ public class GameSettings : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
+            Screen.lockCursor = false;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
         }
     }
