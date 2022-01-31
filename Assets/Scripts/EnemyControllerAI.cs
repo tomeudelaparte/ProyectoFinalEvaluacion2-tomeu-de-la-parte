@@ -13,6 +13,8 @@ public class EnemyControllerAI : MonoBehaviour
 
     private float playerDetectionDistance = 300f;
 
+    public float health = 1f;
+
     void Start()
     {
         player = GameObject.Find("Player");
@@ -45,5 +47,16 @@ public class EnemyControllerAI : MonoBehaviour
     private void shoot()
     {
         Instantiate(blastPrefab, transform.GetChild(0).GetChild(2).position, transform.GetChild(0).GetChild(2).rotation);
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }

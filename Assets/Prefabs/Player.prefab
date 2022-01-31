@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 5270706110942098329}
   - component: {fileID: 1538153704534016824}
   - component: {fileID: 6337714851195617884}
+  - component: {fileID: 300730810947014301}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -147,8 +148,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 12.136007, y: 4.196994, z: 10.780319}
-  m_Center: {x: 0.01613903, y: -0.49959135, z: -0.3389206}
+  m_Size: {x: 12.136007, y: 4.1115437, z: 10.712164}
+  m_Center: {x: 0.01613903, y: -0.54231644, z: -0.30484295}
 --- !u!114 &6337714851195617884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,6 +163,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blastPrefab: {fileID: 8464517445442818275, guid: adbfa306c145461468fcee28e6e0cd78, type: 3}
+--- !u!65 &300730810947014301
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6337714851195617887}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.034134, y: 3.1075678, z: 5.062958}
+  m_Center: {x: -0.027137756, y: 3.0091748, z: 0.026046753}
 --- !u!1 &6337714851307813699
 GameObject:
   m_ObjectHideFlags: 0

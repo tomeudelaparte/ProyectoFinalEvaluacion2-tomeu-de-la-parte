@@ -92,7 +92,8 @@ GameObject:
   - component: {fileID: 3862270370161967881}
   - component: {fileID: 3725957054166211380}
   - component: {fileID: 9128092133016896507}
-  - component: {fileID: -6347111323494554101}
+  - component: {fileID: 5961526419672641167}
+  - component: {fileID: 7839332229683892297}
   m_Layer: 0
   m_Name: EnemyBlast
   m_TagString: Untagged
@@ -144,7 +145,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.2002674, y: 0.24418035, z: 10.001123}
   m_Center: {x: 0.000000014901161, y: -0.011451796, z: -0.0114507675}
---- !u!114 &-6347111323494554101
+--- !u!114 &5961526419672641167
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -153,6 +154,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 8464517445442818275}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d3223c86191b364295163328d8bca42, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bde7a5cad814004793478ae6f4efb57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7839332229683892297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8464517445442818275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77a4624574dea6448a13e48428e22d97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
