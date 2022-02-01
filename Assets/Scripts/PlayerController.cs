@@ -17,9 +17,12 @@ public class PlayerController : MonoBehaviour
 
     private bool canShoot = true;
 
+    private Animator canonAnimator;
+
     private void Start()
     {
         rigidbodyPlayer = GetComponent<Rigidbody>();
+        canonAnimator = transform.GetChild(0).GetChild(0).GetComponent<Animator>();
     }
 
     void Update()
@@ -37,7 +40,9 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space) && canShoot)
         {
-            Instantiate(blastPrefab, transform.GetChild(0).GetChild(2).position, transform.GetChild(0).GetChild(2).rotation);
+            Instantiate(blastPrefab, transform.GetChild(0).GetChild(0).position, transform.GetChild(0).GetChild(0).rotation);
+
+            canonAnimator.SetTrigger("Shoot");
 
             interval += Time.time;
         }

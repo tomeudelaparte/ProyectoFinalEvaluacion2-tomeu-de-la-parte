@@ -15,10 +15,14 @@ public class EnemyControllerAI : MonoBehaviour
 
     public float health = 1f;
 
+    private Animator canonAnimator;
+
     void Start()
     {
         player = GameObject.Find("Player");
         enemy = GetComponent<NavMeshAgent>();
+
+        canonAnimator = transform.GetChild(0).GetChild(0).GetComponent<Animator>();
 
         InvokeRepeating("shoot", 2f, 2f);
     }
@@ -46,7 +50,8 @@ public class EnemyControllerAI : MonoBehaviour
 
     private void shoot()
     {
-        Instantiate(blastPrefab, transform.GetChild(0).GetChild(2).position, transform.GetChild(0).GetChild(2).rotation);
+        Instantiate(blastPrefab, transform.GetChild(0).GetChild(0).position, transform.GetChild(0).GetChild(0).rotation);
+        canonAnimator.SetTrigger("Shoot");
     }
 
     private void OnCollisionEnter(Collision other)
