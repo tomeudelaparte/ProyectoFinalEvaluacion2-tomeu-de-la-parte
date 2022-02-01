@@ -11,9 +11,10 @@ public class EnemyControllerAI : MonoBehaviour
 
     private Vector3 directionToPlayer, newPosition;
 
-    private float playerDetectionDistance = 300f;
+    private float playerDetectionDistance = 400f;
 
     public float health = 1f;
+    public bool isOnEngine = true;
 
     private Animator canonAnimator;
 
@@ -29,39 +30,31 @@ public class EnemyControllerAI : MonoBehaviour
 
     void Update()
     {
-        float distance = Vector3.Distance(transform.position, player.transform.position);
-
-        if (distance < playerDetectionDistance && distance >= 100)
+        if (isOnEngine)
         {
-            directionToPlayer = transform.position - player.transform.position;
+            float distance = Vector3.Distance(transform.position, player.transform.position);
 
-            newPosition = transform.position - directionToPlayer;
-
-            enemy.SetDestination(newPosition);
-
-            if (enemy.velocity.sqrMagnitude > Mathf.Epsilon)
+            if (distance < playerDetectionDistance && distance >= 100)
             {
-                transform.rotation = Quaternion.LookRotation(enemy.velocity.normalized);
+                directionToPlayer = transform.position - player.transform.position;
+
+                newPosition = transform.position - directionToPlayer;
+
+                enemy.SetDestination(newPosition);
+
+                if (enemy.velocity.sqrMagnitude > Mathf.Epsilon)
+                {
+                    transform.rotation = Quaternion.LookRotation(enemy.velocity.normalized);
+                }
             }
         }
 
-        transform.GetChild(0).transform.LookAt(player.transform.position);
+        transform.GetChild(0).transform.LookAt(player.transform.position + new Vector3(0, 2, 0));
     }
 
     private void shoot()
     {
         Instantiate(blastPrefab, transform.GetChild(0).GetChild(0).position, transform.GetChild(0).GetChild(0).rotation);
         canonAnimator.SetTrigger("Shoot");
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            if (health <= 0)
-            {
-                Destroy(gameObject);
-            }
-        }
     }
 }

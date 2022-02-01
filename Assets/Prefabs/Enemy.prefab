@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blastPrefab: {fileID: 8464517445442818275, guid: 5db4f6fa60a2906448efe8132413ce83, type: 3}
+  health: 1
+  isOnEngine: 1
 --- !u!195 &314363139
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -42,6 +44,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 300730810947014301, guid: 605870b6537c22b47b1fbed9a371d6cf, type: 3}
+      propertyPath: m_Size.y
+      value: 2.9580164
+      objectReference: {fileID: 0}
+    - target: {fileID: 300730810947014301, guid: 605870b6537c22b47b1fbed9a371d6cf, type: 3}
+      propertyPath: m_Center.y
+      value: 3.0401816
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538153704534016824, guid: 605870b6537c22b47b1fbed9a371d6cf, type: 3}
+      propertyPath: m_Size.y
+      value: 4.1082897
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538153704534016824, guid: 605870b6537c22b47b1fbed9a371d6cf, type: 3}
+      propertyPath: m_Center.y
+      value: -0.5132829
+      objectReference: {fileID: 0}
     - target: {fileID: 6337714851062687416, guid: 605870b6537c22b47b1fbed9a371d6cf, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -52,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6337714851195617880, guid: 605870b6537c22b47b1fbed9a371d6cf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 200
+      value: -200
       objectReference: {fileID: 0}
     - target: {fileID: 6337714851195617880, guid: 605870b6537c22b47b1fbed9a371d6cf, type: 3}
       propertyPath: m_LocalPosition.y
@@ -128,6 +146,8 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: d4858474ba7f2f34d8ef5f8156fe77e5, type: 2}
     m_RemovedComponents:
     - {fileID: 6337714851195617884, guid: 605870b6537c22b47b1fbed9a371d6cf, type: 3}
+    - {fileID: 1138293976, guid: 605870b6537c22b47b1fbed9a371d6cf, type: 3}
+    - {fileID: 164243852, guid: 605870b6537c22b47b1fbed9a371d6cf, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 605870b6537c22b47b1fbed9a371d6cf, type: 3}
 --- !u!1 &2091160200432403653 stripped
 GameObject:
