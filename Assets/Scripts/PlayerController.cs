@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     public GameObject blastPrefab;
     private Rigidbody rigidbodyPlayer;
 
-    private float horizontalInput, verticalInput, mouseInputX;
+    private float horizontalInput, verticalInput, mouseInputX, mouseInputY;
 
     private float speedMovement = 40f;
     private float speedRotation = 60f;
@@ -19,10 +19,14 @@ public class PlayerController : MonoBehaviour
 
     private Animator canonAnimator;
 
+    private GameObject canvas;
+
     private void Start()
     {
         rigidbodyPlayer = GetComponent<Rigidbody>();
         canonAnimator = transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+
+        canvas = GameObject.Find("Canvas");
     }
 
     void Update()
@@ -32,15 +36,18 @@ public class PlayerController : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
         mouseInputX = Input.GetAxis("Mouse X");
+        mouseInputY = Input.GetAxis("Mouse Y");
+
 
         transform.Translate(Vector3.forward * speedMovement * Time.deltaTime * verticalInput);
         transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * horizontalInput);
 
         transform.GetChild(0).transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * mouseInputX);
+        transform.GetChild(0).GetChild(0).transform.Rotate(Vector3.left * speedRotation * Time.deltaTime * mouseInputY);
 
         if (Input.GetKey(KeyCode.Space) && canShoot)
         {
-            Instantiate(blastPrefab, transform.GetChild(0).GetChild(0).position, transform.GetChild(0).GetChild(0).rotation);
+            Instantiate(blastPrefab, transform.GetChild(0).GetChild(0).GetChild(0).position, transform.GetChild(0).GetChild(0).GetChild(0).rotation);
 
             canonAnimator.SetTrigger("Shoot");
 

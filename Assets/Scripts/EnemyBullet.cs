@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
 {
-    private float speed = 200f;
+    private float speed = 300f;
 
     public ParticleSystem impact;
 

@@ -11,7 +11,7 @@ public class EnemyControllerAI : MonoBehaviour
 
     private Vector3 directionToPlayer, newPosition;
 
-    private float playerDetectionDistance = 400f;
+    private float playerDetectionDistance = 5000f;
 
     public float health = 1f;
     public bool isOnEngine = true;
@@ -30,31 +30,30 @@ public class EnemyControllerAI : MonoBehaviour
 
     void Update()
     {
-        if (isOnEngine)
+
+        float distance = Vector3.Distance(transform.position, player.transform.position);
+
+        if (distance < playerDetectionDistance && distance >= 100)
         {
-            float distance = Vector3.Distance(transform.position, player.transform.position);
+            directionToPlayer = transform.position - player.transform.position;
 
-            if (distance < playerDetectionDistance && distance >= 100)
+            newPosition = transform.position - directionToPlayer;
+
+            enemy.SetDestination(newPosition);
+
+            if (enemy.velocity.sqrMagnitude > Mathf.Epsilon)
             {
-                directionToPlayer = transform.position - player.transform.position;
-
-                newPosition = transform.position - directionToPlayer;
-
-                enemy.SetDestination(newPosition);
-
-                if (enemy.velocity.sqrMagnitude > Mathf.Epsilon)
-                {
-                    transform.rotation = Quaternion.LookRotation(enemy.velocity.normalized);
-                }
+                transform.rotation = Quaternion.LookRotation(enemy.velocity.normalized);
             }
         }
 
-        transform.GetChild(0).transform.LookAt(player.transform.position + new Vector3(0, 2, 0));
+
+        transform.GetChild(0).transform.LookAt(player.transform.position);
     }
 
     private void shoot()
     {
-        Instantiate(blastPrefab, transform.GetChild(0).GetChild(0).position, transform.GetChild(0).GetChild(0).rotation);
+        Instantiate(blastPrefab, transform.GetChild(0).GetChild(0).GetChild(0).position, transform.GetChild(0).GetChild(0).GetChild(0).rotation);
         canonAnimator.SetTrigger("Shoot");
     }
 }
