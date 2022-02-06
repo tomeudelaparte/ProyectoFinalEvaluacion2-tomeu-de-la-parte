@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 
     private float horizontalInput, verticalInput, mouseInputX, mouseInputY;
 
-    private float speedMovement = 40f;
+    private float speedMovement = 0.8f;
     private float speedRotation = 60f;
 
     private float interval;
@@ -19,31 +19,31 @@ public class PlayerController : MonoBehaviour
 
     private Animator canonAnimator;
 
-    private GameObject canvas;
-
     private void Start()
     {
         rigidbodyPlayer = GetComponent<Rigidbody>();
         canonAnimator = transform.GetChild(0).GetChild(0).GetComponent<Animator>();
 
-        canvas = GameObject.Find("Canvas");
+        Physics.gravity *= 2f;
+    }
+
+    private void FixedUpdate()
+    {
+        horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
+
+        transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * horizontalInput);
+        rigidbodyPlayer.AddRelativeForce(Vector3.forward * speedMovement * verticalInput, ForceMode.VelocityChange);
+
+        mouseInputX = Input.GetAxis("Mouse X");
+        mouseInputY = Input.GetAxis("Mouse Y");
+
+        transform.GetChild(0).transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * mouseInputX);
+        transform.GetChild(0).GetChild(0).transform.Rotate(Vector3.left * speedRotation * Time.deltaTime * mouseInputY);
     }
 
     void Update()
     {
-        rigidbodyPlayer.AddForce(Vector3.up * -1000, ForceMode.Force);
-
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
-        mouseInputX = Input.GetAxis("Mouse X");
-        mouseInputY = Input.GetAxis("Mouse Y");
-
-
-        transform.Translate(Vector3.forward * speedMovement * Time.deltaTime * verticalInput);
-        transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * horizontalInput);
-
-        transform.GetChild(0).transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * mouseInputX);
-        transform.GetChild(0).GetChild(0).transform.Rotate(Vector3.left * speedRotation * Time.deltaTime * mouseInputY);
 
         if (Input.GetKey(KeyCode.Space) && canShoot)
         {

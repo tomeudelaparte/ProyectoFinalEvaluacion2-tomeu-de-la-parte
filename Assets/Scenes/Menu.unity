@@ -931,6 +931,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1623103512928561363, guid: b9594adc4154dab48aa2b629f7ee6090, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1623103512928561363, guid: b9594adc4154dab48aa2b629f7ee6090, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 12.6444845
+      objectReference: {fileID: 0}
+    - target: {fileID: 1623103512928561363, guid: b9594adc4154dab48aa2b629f7ee6090, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.9223599
+      objectReference: {fileID: 0}
+    - target: {fileID: 1623103512928561363, guid: b9594adc4154dab48aa2b629f7ee6090, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1623103512928561363, guid: b9594adc4154dab48aa2b629f7ee6090, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1623103512928561363, guid: b9594adc4154dab48aa2b629f7ee6090, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -242
+      objectReference: {fileID: 0}
+    - target: {fileID: 1623103512928561364, guid: b9594adc4154dab48aa2b629f7ee6090, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 968f8707337b70c4ba8d62532800e16f, type: 3}
     - target: {fileID: 1623103513373039576, guid: b9594adc4154dab48aa2b629f7ee6090, type: 3}
       propertyPath: m_Name
       value: Canvas
