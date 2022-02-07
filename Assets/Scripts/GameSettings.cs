@@ -12,7 +12,6 @@ public class GameSettings : MonoBehaviour
         Application.targetFrameRate = 60;
     }
 
-
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape))

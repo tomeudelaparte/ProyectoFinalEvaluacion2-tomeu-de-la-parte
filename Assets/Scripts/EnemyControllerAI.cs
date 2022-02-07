@@ -30,7 +30,6 @@ public class EnemyControllerAI : MonoBehaviour
 
     void Update()
     {
-
         float distance = Vector3.Distance(transform.position, player.transform.position);
 
         if (distance < playerDetectionDistance && distance >= 100)
@@ -47,8 +46,15 @@ public class EnemyControllerAI : MonoBehaviour
             }
         }
 
+        Vector3 lookPos = (player.transform.position - transform.position).normalized;
 
-        transform.GetChild(0).transform.LookAt(player.transform.position);
+        lookPos.y += 5;
+
+        transform.GetChild(0).LookAt(player.transform.position);
+        transform.GetChild(0).GetChild(0).LookAt(lookPos);
+
+        transform.GetChild(0).localEulerAngles = new Vector3(0, transform.GetChild(0).localEulerAngles.y, 0);
+        transform.GetChild(0).GetChild(0).localEulerAngles = new Vector3(-transform.GetChild(0).GetChild(0).localEulerAngles.x, 0, 0);
     }
 
     private void shoot()

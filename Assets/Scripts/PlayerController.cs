@@ -36,12 +36,15 @@ public class PlayerController : MonoBehaviour
 
         transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * horizontalInput);
 
-        IsGrounded();
+       // IsGrounded();
 
+        /*
         if(isGrounded)
-        {
+        {*/
             rigidbodyPlayer.AddRelativeForce(Vector3.forward * speedMovement * verticalInput, ForceMode.VelocityChange);
-        }
+
+         /*
+        }*/
 
         if (rigidbodyPlayer.velocity.magnitude > maxVelocity)
         {
@@ -82,6 +85,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /*
     private void IsGrounded() {
 
         Ray ray = new Ray(transform.position, -transform.up);
@@ -90,6 +94,6 @@ public class PlayerController : MonoBehaviour
         Debug.Log(Physics.Raycast(ray, out hitData, 4f));
 
         isGrounded = Physics.Raycast(ray, out hitData);
-    }
+    }*/
  
 }

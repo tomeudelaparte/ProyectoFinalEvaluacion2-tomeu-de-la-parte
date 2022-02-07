@@ -200,8 +200,8 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6337714851195617887}
-  m_Material: {fileID: 13400000, guid: d29e090ad7fac0c44822bde3c323d6d0, type: 2}
-  m_IsTrigger: 0
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 12.136007, y: 4.044577, z: 10.667664}
@@ -232,6 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blastPrefab: {fileID: 8464517445442818275, guid: adbfa306c145461468fcee28e6e0cd78, type: 3}
+  isGrounded: 0
 --- !u!135 &410526237
 SphereCollider:
   m_ObjectHideFlags: 0
