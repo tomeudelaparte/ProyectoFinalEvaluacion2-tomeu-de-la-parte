@@ -9,13 +9,15 @@ public class PlayerController : MonoBehaviour
 
     private float horizontalInput, verticalInput, mouseInputX, mouseInputY;
 
-    private float speedMovement = 2f;
+    private float speedMovement = 20f;
     private float speedRotation = 60f;
+    private float maxVelocity = 50f;
 
     private float interval;
     private float intervalTime = 0.25f;
 
     private bool canShoot = true;
+    public bool isGrounded;
 
     private Animator canonAnimator;
 
@@ -23,24 +25,28 @@ public class PlayerController : MonoBehaviour
     {
         rigidbodyPlayer = GetComponent<Rigidbody>();
         canonAnimator = transform.GetChild(0).GetChild(0).GetComponent<Animator>();
-
-        Physics.gravity *= 2f;
     }
 
     private void FixedUpdate()
     {
+        rigidbodyPlayer.AddForce(Vector3.up * -100);
+
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
 
         transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * horizontalInput);
-        rigidbodyPlayer.AddRelativeForce(Vector3.forward * speedMovement * verticalInput, ForceMode.VelocityChange);
 
-        /*
-        if(verticalInput == 0 && rigidbodyPlayer.velocity != Vector3.zero)
+        IsGrounded();
+
+        if(isGrounded)
         {
-            rigidbodyPlayer.velocity *= 0.8f;
+            rigidbodyPlayer.AddRelativeForce(Vector3.forward * speedMovement * verticalInput, ForceMode.VelocityChange);
         }
-        */
+
+        if (rigidbodyPlayer.velocity.magnitude > maxVelocity)
+        {
+            rigidbodyPlayer.velocity = rigidbodyPlayer.velocity.normalized * maxVelocity;
+        }
 
         mouseInputX = Input.GetAxis("Mouse X");
         mouseInputY = Input.GetAxis("Mouse Y");
@@ -51,7 +57,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
         if (Input.GetKey(KeyCode.Space) && canShoot)
         {
             Instantiate(blastPrefab, transform.GetChild(0).GetChild(0).GetChild(0).position, transform.GetChild(0).GetChild(0).GetChild(0).rotation);
@@ -76,4 +81,15 @@ public class PlayerController : MonoBehaviour
             canShoot = false;
         }
     }
+
+    private void IsGrounded() {
+
+        Ray ray = new Ray(transform.position, -transform.up);
+        RaycastHit hitData;
+
+        Debug.Log(Physics.Raycast(ray, out hitData, 4f));
+
+        isGrounded = Physics.Raycast(ray, out hitData);
+    }
+ 
 }

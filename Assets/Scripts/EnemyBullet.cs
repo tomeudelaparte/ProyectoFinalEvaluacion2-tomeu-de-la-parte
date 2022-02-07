@@ -13,7 +13,7 @@ public class EnemyBullet : MonoBehaviour
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
@@ -31,7 +31,7 @@ public class EnemyBullet : MonoBehaviour
 
     }
 
-    private void spawnImpactParticles(Collision other)
+    private void spawnImpactParticles(Collider other)
     {
         impact = Instantiate(impact, transform.position, transform.rotation);
 
@@ -40,7 +40,7 @@ public class EnemyBullet : MonoBehaviour
         impact.Play();
     }
 
-    private void spawnImpactParticlesGround(Collision other)
+    private void spawnImpactParticlesGround(Collider other)
     {
         impact = Instantiate(impact, transform.position, transform.rotation);
 
