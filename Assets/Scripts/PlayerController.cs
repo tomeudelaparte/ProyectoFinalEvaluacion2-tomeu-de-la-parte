@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 
     private float horizontalInput, verticalInput, mouseInputX, mouseInputY;
 
-    private float speedMovement = 0.8f;
+    private float speedMovement = 2f;
     private float speedRotation = 60f;
 
     private float interval;
@@ -34,6 +34,13 @@ public class PlayerController : MonoBehaviour
 
         transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * horizontalInput);
         rigidbodyPlayer.AddRelativeForce(Vector3.forward * speedMovement * verticalInput, ForceMode.VelocityChange);
+
+        /*
+        if(verticalInput == 0 && rigidbodyPlayer.velocity != Vector3.zero)
+        {
+            rigidbodyPlayer.velocity *= 0.8f;
+        }
+        */
 
         mouseInputX = Input.GetAxis("Mouse X");
         mouseInputY = Input.GetAxis("Mouse Y");

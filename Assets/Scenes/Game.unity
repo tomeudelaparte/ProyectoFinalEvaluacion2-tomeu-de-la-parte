@@ -123,6 +123,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: d60e45f9fe6a39c4e811b7d0ff7e503e, type: 2}
+--- !u!1 &410526231 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6337714851195617887, guid: 605870b6537c22b47b1fbed9a371d6cf, type: 3}
+  m_PrefabInstance: {fileID: 1112194826707587786}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &410526237
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410526231}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.0359507
+  m_Center: {x: -5, y: -0.5, z: -5}
+--- !u!135 &410526238
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410526231}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.065529
+  m_Center: {x: 5, y: -0.5, z: -5}
+--- !u!135 &410526239
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410526231}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.0655365
+  m_Center: {x: -5, y: -0.7, z: 5}
+--- !u!135 &410526240
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410526231}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.065536
+  m_Center: {x: 5, y: -0.7, z: 5}
 --- !u!1001 &558175159
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -637,8 +694,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1538153704534016824, guid: 605870b6537c22b47b1fbed9a371d6cf, type: 3}
+      propertyPath: m_Size.y
+      value: 2.9053564
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538153704534016824, guid: 605870b6537c22b47b1fbed9a371d6cf, type: 3}
+      propertyPath: m_Size.z
+      value: 8.642395
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538153704534016824, guid: 605870b6537c22b47b1fbed9a371d6cf, type: 3}
       propertyPath: m_Center.y
-      value: -0.5441861
+      value: 0.05703807
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538153704534016824, guid: 605870b6537c22b47b1fbed9a371d6cf, type: 3}
+      propertyPath: m_Center.z
+      value: -0.038726807
       objectReference: {fileID: 0}
     - target: {fileID: 5270706110942098329, guid: 605870b6537c22b47b1fbed9a371d6cf, type: 3}
       propertyPath: m_Mass
