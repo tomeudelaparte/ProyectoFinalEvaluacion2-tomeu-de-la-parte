@@ -11,10 +11,13 @@ public class EnemyControllerAI : MonoBehaviour
 
     private Vector3 directionToPlayer, newPosition;
 
-    private float playerDetectionDistance = 5000f;
+    private float playerDetectionDistance = 2000f;
 
     public float health = 1f;
     public bool isOnEngine = true;
+
+    private float shootSpeed = 2f;
+    private bool canShootWeapon = true;
 
     private Animator canonAnimator;
 
@@ -24,8 +27,6 @@ public class EnemyControllerAI : MonoBehaviour
         enemy = GetComponent<NavMeshAgent>();
 
         canonAnimator = transform.GetChild(0).GetChild(0).GetComponent<Animator>();
-
-        InvokeRepeating("shoot", 2f, 2f);
     }
 
     void Update()
@@ -46,20 +47,46 @@ public class EnemyControllerAI : MonoBehaviour
             }
         }
 
-        Vector3 lookPos = (player.transform.position - transform.position).normalized;
-
-        lookPos.y += 5;
+        if (canShootWeapon && IsPlayerOnSight())
+        {
+            weaponShoot();
+        }
 
         transform.GetChild(0).LookAt(player.transform.position);
-        transform.GetChild(0).GetChild(0).LookAt(lookPos);
-
         transform.GetChild(0).localEulerAngles = new Vector3(0, transform.GetChild(0).localEulerAngles.y, 0);
-        transform.GetChild(0).GetChild(0).localEulerAngles = new Vector3(-transform.GetChild(0).GetChild(0).localEulerAngles.x, 0, 0);
     }
 
-    private void shoot()
+    private void weaponShoot()
     {
-        Instantiate(blastPrefab, transform.GetChild(0).GetChild(0).GetChild(0).position, transform.GetChild(0).GetChild(0).GetChild(0).rotation);
         canonAnimator.SetTrigger("Shoot");
+
+        Instantiate(blastPrefab, transform.GetChild(0).GetChild(0).GetChild(0).position, transform.GetChild(0).GetChild(0).GetChild(0).rotation);
+
+        StartCoroutine(weaponCooldown());
+    }
+
+    private IEnumerator weaponCooldown()
+    {
+        canShootWeapon = false;
+        yield return new WaitForSeconds(shootSpeed);
+        canShootWeapon = true;
+    }
+
+    private bool IsPlayerOnSight()
+    {
+        RaycastHit hitData;
+
+        Ray ray = new Ray(transform.GetChild(0).GetChild(0).position, transform.GetChild(0).GetChild(0).forward);
+
+        Debug.DrawRay(transform.GetChild(0).GetChild(0).position, transform.GetChild(0).GetChild(0).forward * playerDetectionDistance, Color.yellow);
+
+        if (Physics.Raycast(ray, out hitData, playerDetectionDistance))
+        {
+            return hitData.collider.CompareTag("Player");
+        }
+        else
+        {
+            return false;
+        }
     }
 }

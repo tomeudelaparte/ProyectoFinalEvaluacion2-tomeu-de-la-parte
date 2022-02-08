@@ -13,11 +13,11 @@ public class PlayerController : MonoBehaviour
     private float speedRotation = 60f;
     private float maxVelocity = 50f;
 
-    private float interval;
-    private float intervalTime = 0.25f;
+    private float shootSpeed = 0.25f;
 
-    private bool canShoot = true;
     public bool isGrounded;
+
+    private bool canShootWeapon = true;
 
     private Animator canonAnimator;
 
@@ -36,15 +36,15 @@ public class PlayerController : MonoBehaviour
 
         transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * horizontalInput);
 
-       // IsGrounded();
+        // IsGrounded();
 
         /*
         if(isGrounded)
         {*/
-            rigidbodyPlayer.AddRelativeForce(Vector3.forward * speedMovement * verticalInput, ForceMode.VelocityChange);
+        rigidbodyPlayer.AddRelativeForce(Vector3.forward * speedMovement * verticalInput, ForceMode.VelocityChange);
 
-         /*
-        }*/
+        /*
+       }*/
 
         if (rigidbodyPlayer.velocity.magnitude > maxVelocity)
         {
@@ -60,29 +60,28 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space) && canShoot)
+        if (Input.GetKey(KeyCode.Space) && canShootWeapon)
         {
-            Instantiate(blastPrefab, transform.GetChild(0).GetChild(0).GetChild(0).position, transform.GetChild(0).GetChild(0).GetChild(0).rotation);
-
             canonAnimator.SetTrigger("Shoot");
 
-            interval += Time.time;
+            weaponShoot();
         }
-
-        checkingWeapon();
     }
 
-    private void checkingWeapon()
+    private void weaponShoot()
     {
-        if (interval <= Time.time)
-        {
-            canShoot = true;
-            interval = intervalTime;
-        }
-        else
-        {
-            canShoot = false;
-        }
+        canonAnimator.SetTrigger("Shoot");
+
+        Instantiate(blastPrefab, transform.GetChild(0).GetChild(0).GetChild(0).position, transform.GetChild(0).GetChild(0).GetChild(0).rotation);
+
+        StartCoroutine(weaponCooldown());
+    }
+
+    private IEnumerator weaponCooldown()
+    {
+        canShootWeapon = false;
+        yield return new WaitForSeconds(shootSpeed);
+        canShootWeapon = true;
     }
 
     /*
@@ -95,5 +94,4 @@ public class PlayerController : MonoBehaviour
 
         isGrounded = Physics.Raycast(ray, out hitData);
     }*/
- 
 }
