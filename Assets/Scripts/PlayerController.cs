@@ -6,8 +6,14 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject blastPrefab;
     private Rigidbody rigidbodyPlayer;
+    private AudioSource audioSourcePlayer;
+
+    public AudioClip shootSFX;
+    private Animator canonAnimator;
 
     private float horizontalInput, verticalInput, mouseInputX, mouseInputY;
+
+    private bool canShootWeapon = true;
 
     private float speedMovement = 20f;
     private float speedRotation = 60f;
@@ -17,13 +23,10 @@ public class PlayerController : MonoBehaviour
 
     public bool isGrounded;
 
-    private bool canShootWeapon = true;
-
-    private Animator canonAnimator;
-
     private void Start()
     {
         rigidbodyPlayer = GetComponent<Rigidbody>();
+        audioSourcePlayer = GetComponent<AudioSource>();
         canonAnimator = transform.GetChild(0).GetChild(0).GetComponent<Animator>();
     }
 
@@ -63,6 +66,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && canShootWeapon)
         {
             canonAnimator.SetTrigger("Shoot");
+
+            audioSourcePlayer.PlayOneShot(shootSFX, 0.3f);
 
             weaponShoot();
         }

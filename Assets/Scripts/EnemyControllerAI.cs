@@ -6,8 +6,11 @@ using UnityEngine.AI;
 public class EnemyControllerAI : MonoBehaviour
 {
     private GameObject player;
-    private NavMeshAgent enemy;
+    private NavMeshAgent enemyAgent;
     public GameObject blastPrefab;
+    private AudioSource audioSourceEnemy;
+
+    public AudioClip shootSFX;
 
     private Vector3 directionToPlayer, newPosition;
 
@@ -24,7 +27,8 @@ public class EnemyControllerAI : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
-        enemy = GetComponent<NavMeshAgent>();
+        audioSourceEnemy = GetComponent<AudioSource>();
+        enemyAgent = GetComponent<NavMeshAgent>();
 
         canonAnimator = transform.GetChild(0).GetChild(0).GetComponent<Animator>();
     }
@@ -39,16 +43,18 @@ public class EnemyControllerAI : MonoBehaviour
 
             newPosition = transform.position - directionToPlayer;
 
-            enemy.SetDestination(newPosition);
+            enemyAgent.SetDestination(newPosition);
 
-            if (enemy.velocity.sqrMagnitude > Mathf.Epsilon)
+            if (enemyAgent.velocity.sqrMagnitude > Mathf.Epsilon)
             {
-                transform.rotation = Quaternion.LookRotation(enemy.velocity.normalized);
+                transform.rotation = Quaternion.LookRotation(enemyAgent.velocity.normalized);
             }
         }
 
         if (canShootWeapon && IsPlayerOnSight())
         {
+
+            audioSourceEnemy.PlayOneShot(shootSFX, 1f);
             weaponShoot();
         }
 

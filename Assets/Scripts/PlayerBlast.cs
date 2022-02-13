@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class EnemyBullet : MonoBehaviour
+public class PlayerBlast : MonoBehaviour
 {
     private float speed = 300f;
-
     public ParticleSystem impact;
 
     void Update()
@@ -15,8 +15,22 @@ public class EnemyBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Enemy"))
         {
+            other.gameObject.GetComponent<EnemyControllerAI>().health -= 0.5f;
+
+            if (other.gameObject.GetComponent<EnemyControllerAI>().health <= 0)
+            {
+                Destroy(other.gameObject);
+            }
+
+            if (other.gameObject.GetComponent<EnemyControllerAI>().health <= 0.5f)
+            {
+                other.gameObject.GetComponent<EnemyControllerAI>().isOnEngine = false;
+
+                other.gameObject.GetComponent<NavMeshAgent>().speed = 0;
+            }
+
             spawnImpactParticles(other);
 
             Destroy(gameObject);
@@ -28,7 +42,6 @@ public class EnemyBullet : MonoBehaviour
 
             Destroy(gameObject);
         }
-
     }
 
     private void spawnImpactParticles(Collider other)
