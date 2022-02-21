@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3094906525069988150
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3474236436839637205, guid: aae4d99eeefcb0e4eac9dd3755c4615e, type: 3}
+      propertyPath: m_Name
+      value: Blast Red Particles
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197411879133216821, guid: aae4d99eeefcb0e4eac9dd3755c4615e, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197411879133216821, guid: aae4d99eeefcb0e4eac9dd3755c4615e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -16.64313
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197411879133216821, guid: aae4d99eeefcb0e4eac9dd3755c4615e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197411879133216821, guid: aae4d99eeefcb0e4eac9dd3755c4615e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.167864
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197411879133216821, guid: aae4d99eeefcb0e4eac9dd3755c4615e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197411879133216821, guid: aae4d99eeefcb0e4eac9dd3755c4615e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197411879133216821, guid: aae4d99eeefcb0e4eac9dd3755c4615e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197411879133216821, guid: aae4d99eeefcb0e4eac9dd3755c4615e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197411879133216821, guid: aae4d99eeefcb0e4eac9dd3755c4615e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197411879133216821, guid: aae4d99eeefcb0e4eac9dd3755c4615e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197411879133216821, guid: aae4d99eeefcb0e4eac9dd3755c4615e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8814192040510804147, guid: aae4d99eeefcb0e4eac9dd3755c4615e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 147c1020f29caaa4abc6bc5078d9e5c7, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: aae4d99eeefcb0e4eac9dd3755c4615e, type: 3}

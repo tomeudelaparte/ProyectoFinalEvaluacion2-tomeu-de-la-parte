@@ -6,7 +6,7 @@ public class EnemyBlast : MonoBehaviour
 {
     private float speed = 300f;
 
-    public ParticleSystem impact;
+    public ParticleSystem blueBlastParticles, pinkBlastParticles;
 
     void Update()
     {
@@ -17,35 +17,16 @@ public class EnemyBlast : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            spawnImpactParticles(other);
+            Instantiate(pinkBlastParticles, transform.position, transform.rotation);
 
             Destroy(gameObject);
         }
 
         if (other.gameObject.CompareTag("Ground"))
         {
-            spawnImpactParticlesGround(other);
+            Instantiate(blueBlastParticles, transform.position, transform.rotation);
 
             Destroy(gameObject);
         }
-
-    }
-
-    private void spawnImpactParticles(Collider other)
-    {
-        impact = Instantiate(impact, transform.position, transform.rotation);
-
-        impact.GetComponent<Renderer>().material.SetColor("_EmissionColor", other.gameObject.transform.GetChild(1).GetComponent<Renderer>().material.color);
-
-        impact.Play();
-    }
-
-    private void spawnImpactParticlesGround(Collider other)
-    {
-        impact = Instantiate(impact, transform.position, transform.rotation);
-
-        impact.GetComponent<Renderer>().material.SetColor("_EmissionColor", other.gameObject.transform.GetComponent<Renderer>().material.color);
-
-        impact.Play();
     }
 }
