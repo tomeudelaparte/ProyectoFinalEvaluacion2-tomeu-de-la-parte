@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using TMPro;
 
 public class EnemyControllerAI : MonoBehaviour
 {
@@ -17,12 +18,16 @@ public class EnemyControllerAI : MonoBehaviour
     private float playerDetectionDistance = 2000f;
 
     public float health = 1f;
-    public bool isOnEngine = true;
 
     private float shootSpeed = 2f;
     private bool canShootWeapon = true;
 
     private Animator canonAnimator;
+
+    private bool isColliding = false;
+
+    public GameObject damageTextPrefab;
+    private float damage = 0.25f;
 
     void Start()
     {
@@ -53,7 +58,6 @@ public class EnemyControllerAI : MonoBehaviour
 
         if (canShootWeapon && IsPlayerOnSight())
         {
-
             audioSourceEnemy.PlayOneShot(shootSFX, 1f);
             weaponShoot();
         }
@@ -94,5 +98,32 @@ public class EnemyControllerAI : MonoBehaviour
         {
             return false;
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("PlayerBlast"))
+        {
+            if (isColliding) return;
+            isColliding = true;
+
+            GameObject textDamage = Instantiate(damageTextPrefab, other.transform.position, damageTextPrefab.transform.rotation);
+            textDamage.transform.GetChild(0).GetComponent<TextMeshPro>().text = "-" + damage.ToString();
+
+            health -= 0.25f;
+
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+            }
+
+            StartCoroutine(TriggerEnterOn());
+        }
+    }
+
+    private IEnumerator TriggerEnterOn()
+    {
+        yield return new WaitForEndOfFrame();
+        isColliding = false;
     }
 }

@@ -16,12 +16,12 @@ public class PlayerController : MonoBehaviour
     private bool canShootWeapon = true;
 
     private float speedMovement = 20f;
-    private float speedRotation = 60f;
+    private float speedRotation = 50f;
     private float maxVelocity = 50f;
 
     private float shootSpeed = 0.25f;
 
-    public bool isGrounded;
+    // public bool isGrounded;
 
     private void Start()
     {
@@ -39,15 +39,8 @@ public class PlayerController : MonoBehaviour
 
         transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * horizontalInput);
 
-        // IsGrounded();
 
-        /*
-        if(isGrounded)
-        {*/
         rigidbodyPlayer.AddRelativeForce(Vector3.forward * speedMovement * verticalInput, ForceMode.VelocityChange);
-
-        /*
-       }*/
 
         if (rigidbodyPlayer.velocity.magnitude > maxVelocity)
         {

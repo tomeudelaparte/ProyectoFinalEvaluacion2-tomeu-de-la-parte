@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TextDamage: MonoBehaviour
 {
-    private float lifeTime = 5f;
+    private float lifeTime = 2.5f;
     private GameObject player;
 
     void Start()
