@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,19 +16,27 @@ public class PlayerController : MonoBehaviour
 
     private bool canShootWeapon = true;
 
+    public GameObject healthBar, shieldBar;
+    private float health = 1f;
+    private float shield = 1f;
+
     private float speedMovement = 20f;
     private float speedRotation = 70f;
     private float maxVelocity = 50f;
 
     private float shootSpeed = 0.25f;
 
-    private float groundDistance = 6f; 
+    private float groundDistance = 6f;
+    private bool isColliding = false;
 
     private void Start()
     {
         rigidbodyPlayer = GetComponent<Rigidbody>();
         audioSourcePlayer = GetComponent<AudioSource>();
         canonAnimator = transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+
+        shieldBar.GetComponentInChildren<Slider>().value = shield;
+        healthBar.GetComponentInChildren<Slider>().value = health;
     }
 
     private void FixedUpdate()
@@ -39,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
         transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * horizontalInput);
 
-        if(IsGrounded())
+        if (IsGrounded())
         {
             rigidbodyPlayer.AddRelativeForce(Vector3.forward * speedMovement * verticalInput, ForceMode.VelocityChange);
 
@@ -53,6 +62,7 @@ public class PlayerController : MonoBehaviour
         mouseInputY = Input.GetAxis("Mouse Y");
 
         transform.GetChild(0).transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * mouseInputX);
+        
         transform.GetChild(0).GetChild(0).transform.Rotate(Vector3.left * speedRotation * Time.deltaTime * mouseInputY);
     }
 
@@ -66,6 +76,78 @@ public class PlayerController : MonoBehaviour
 
             weaponShoot();
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("HealthPowerUp"))
+        {
+            if (health < 1f)
+            {
+                if (health + 0.5f >= 1f)
+                {
+                    health = 1f;
+                }
+                else
+                {
+                    health += 0.5f;
+                }
+
+                healthBar.GetComponentInChildren<Slider>().value = health;
+
+                Destroy(other.gameObject);
+            }
+        }
+
+        if (other.gameObject.CompareTag("ShieldPowerUp"))
+        {
+            if (shield < 1f)
+            {
+                if (shield + 1f >= 1f)
+                {
+                    shield = 1f;
+                }
+                else
+                {
+                    shield += 1f;
+                }
+
+                shieldBar.GetComponentInChildren<Slider>().value = shield;
+
+                Destroy(other.gameObject);
+            }
+        }
+
+        if (other.gameObject.CompareTag("EnemyBlast"))
+        {
+            if (isColliding) return;
+            isColliding = true;
+
+            if (shield > 0)
+            {
+                shield -= 0.35f;
+                shieldBar.GetComponentInChildren<Slider>().value = shield;
+
+            }
+            else if (health > 0)
+            {
+                health -= 0.25f;
+                healthBar.GetComponentInChildren<Slider>().value = health;
+            }
+
+            if (health <= 0)
+            {
+                //Time.timeScale = 0;
+            }
+
+            StartCoroutine(TriggerEnterOn());
+        }
+    }
+
+    private IEnumerator TriggerEnterOn()
+    {
+        yield return new WaitForEndOfFrame();
+        isColliding = false;
     }
 
     private void weaponShoot()
@@ -84,8 +166,9 @@ public class PlayerController : MonoBehaviour
         canShootWeapon = true;
     }
 
- 
-    private bool IsGrounded() {
+
+    private bool IsGrounded()
+    {
 
         RaycastHit hitData;
 
@@ -102,6 +185,4 @@ public class PlayerController : MonoBehaviour
             return false;
         }
     }
-
-
 }

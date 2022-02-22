@@ -2,23 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TextDamage: MonoBehaviour
+public class LookAt : MonoBehaviour
 {
-    private float lifeTime = 2.5f;
-    private GameObject camera;
-
+    private GameObject camera; 
+    
     void Start()
     {
-        Destroy(gameObject, lifeTime);
         camera = GameObject.Find("Main Camera");
     }
 
     void Update()
     {
-        transform.Translate(Vector3.up * 20 * Time.deltaTime, Space.World);
-
         transform.LookAt(camera.transform.position);
         transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
+
 
     }
 }

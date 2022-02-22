@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using TMPro;
 
 public class EnemyControllerAI : MonoBehaviour
@@ -26,8 +27,9 @@ public class EnemyControllerAI : MonoBehaviour
 
     private bool isColliding = false;
 
+    public GameObject healthBar;
     public GameObject damageTextPrefab;
-    private float damage = 0.25f;
+    private float damage = 0.35f;
 
     void Start()
     {
@@ -36,10 +38,13 @@ public class EnemyControllerAI : MonoBehaviour
         enemyAgent = GetComponent<NavMeshAgent>();
 
         canonAnimator = transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+
+        healthBar.GetComponentInChildren<Slider>().value = health;
     }
 
     void Update()
     {
+
         float distance = Vector3.Distance(transform.position, player.transform.position);
 
         if (distance < playerDetectionDistance && distance >= 100)
@@ -110,7 +115,13 @@ public class EnemyControllerAI : MonoBehaviour
             GameObject textDamage = Instantiate(damageTextPrefab, other.transform.position, damageTextPrefab.transform.rotation);
             textDamage.transform.GetChild(0).GetComponent<TextMeshPro>().text = "-" + damage.ToString();
 
-            health -= 0.25f;
+            health -= damage;
+            healthBar.GetComponentInChildren<Slider>().value = health;
+
+            if (health < 1)
+            {
+                healthBar.SetActive(true);
+            }
 
             if (health <= 0)
             {

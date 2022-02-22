@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - PlayerBlast
   - EnemyBlast
+  - HealthPowerUp
+  - ShieldPowerUp
   layers:
   - Default
   - TransparentFX

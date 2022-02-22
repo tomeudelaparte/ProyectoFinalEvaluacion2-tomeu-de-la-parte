@@ -197,6 +197,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blastPrefab: {fileID: 8464517445442818275, guid: adbfa306c145461468fcee28e6e0cd78, type: 3}
   shootSFX: {fileID: 8300000, guid: 702800ca432bc6647a666fb8a0514d2c, type: 3}
+  healthBar: {fileID: 0}
+  shieldBar: {fileID: 0}
 --- !u!82 &913570864584229838
 AudioSource:
   m_ObjectHideFlags: 0
