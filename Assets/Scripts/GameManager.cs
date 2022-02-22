@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             //Screen.lockCursor = false;
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
+            //SceneManager.LoadScene(0);
         }
     }
 }

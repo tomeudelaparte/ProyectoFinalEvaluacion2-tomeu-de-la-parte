@@ -16,12 +16,12 @@ public class PlayerController : MonoBehaviour
     private bool canShootWeapon = true;
 
     private float speedMovement = 20f;
-    private float speedRotation = 50f;
+    private float speedRotation = 70f;
     private float maxVelocity = 50f;
 
     private float shootSpeed = 0.25f;
 
-    // public bool isGrounded;
+    private float groundDistance = 6f; 
 
     private void Start()
     {
@@ -39,12 +39,14 @@ public class PlayerController : MonoBehaviour
 
         transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * horizontalInput);
 
-
-        rigidbodyPlayer.AddRelativeForce(Vector3.forward * speedMovement * verticalInput, ForceMode.VelocityChange);
-
-        if (rigidbodyPlayer.velocity.magnitude > maxVelocity)
+        if(IsGrounded())
         {
-            rigidbodyPlayer.velocity = rigidbodyPlayer.velocity.normalized * maxVelocity;
+            rigidbodyPlayer.AddRelativeForce(Vector3.forward * speedMovement * verticalInput, ForceMode.VelocityChange);
+
+            if (rigidbodyPlayer.velocity.magnitude > maxVelocity)
+            {
+                rigidbodyPlayer.velocity = rigidbodyPlayer.velocity.normalized * maxVelocity;
+            }
         }
 
         mouseInputX = Input.GetAxis("Mouse X");
@@ -82,14 +84,24 @@ public class PlayerController : MonoBehaviour
         canShootWeapon = true;
     }
 
-    /*
-    private void IsGrounded() {
+ 
+    private bool IsGrounded() {
 
-        Ray ray = new Ray(transform.position, -transform.up);
         RaycastHit hitData;
 
-        Debug.Log(Physics.Raycast(ray, out hitData, 4f));
+        Ray ray = new Ray(transform.position, -transform.up);
 
-        isGrounded = Physics.Raycast(ray, out hitData);
-    }*/
+        Debug.DrawRay(transform.position, -transform.up * groundDistance, Color.cyan);
+
+        if (Physics.Raycast(ray, out hitData, groundDistance))
+        {
+            return hitData.collider.CompareTag("Ground");
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
 }
