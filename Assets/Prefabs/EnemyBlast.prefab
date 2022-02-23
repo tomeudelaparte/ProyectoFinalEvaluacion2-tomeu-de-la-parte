@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bde7a5cad814004793478ae6f4efb57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blueBlastParticles: {fileID: 7048580178932263078, guid: aae4d99eeefcb0e4eac9dd3755c4615e, type: 3}
+  yellowBlastParticles: {fileID: 7048580178932263078, guid: 0e3ebc70bb6f7ef4e91bda2332fa2089, type: 3}
   pinkBlastParticles: {fileID: 1815469850901139648, guid: 8ea1f192aea20444bb9f090516b3ff91, type: 3}
 --- !u!114 &-5185676627277391840
 MonoBehaviour:

@@ -3,7 +3,9 @@ guid: 0bde7a5cad814004793478ae6f4efb57
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - yellowBlastParticles: {fileID: 7048580178932263078, guid: 0e3ebc70bb6f7ef4e91bda2332fa2089, type: 3}
+  - pinkBlastParticles: {fileID: 1815469850901139648, guid: 8ea1f192aea20444bb9f090516b3ff91, type: 3}
   executionOrder: 0
   icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   userData: 

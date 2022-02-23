@@ -6,7 +6,7 @@ public class EnemyBlast : MonoBehaviour
 {
     private float speed = 300f;
 
-    public ParticleSystem blueBlastParticles, pinkBlastParticles;
+    public ParticleSystem yellowBlastParticles, pinkBlastParticles;
 
     void Update()
     {
@@ -24,7 +24,7 @@ public class EnemyBlast : MonoBehaviour
 
         if (other.gameObject.CompareTag("Ground"))
         {
-            Instantiate(blueBlastParticles, transform.position, transform.rotation);
+            Instantiate(yellowBlastParticles, transform.position, transform.rotation);
 
             Destroy(gameObject);
         }
