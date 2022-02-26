@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     public AudioClip shootSFX;
     private Animator canonAnimator;
 
+    private float mouseSensitivity = 2;
+
     private float horizontalInput, verticalInput, mouseInputX, mouseInputY;
 
     private bool canShootWeapon = true;
@@ -58,8 +60,8 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        mouseInputX = Input.GetAxis("Mouse X");
-        mouseInputY = Input.GetAxis("Mouse Y");
+        mouseInputX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        mouseInputY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
         transform.GetChild(0).transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * mouseInputX);
         
@@ -74,7 +76,7 @@ public class PlayerController : MonoBehaviour
 
             audioSourcePlayer.PlayOneShot(shootSFX, 0.3f);
 
-            weaponShoot();
+            WeaponShoot();
         }
     }
 
@@ -150,16 +152,16 @@ public class PlayerController : MonoBehaviour
         isColliding = false;
     }
 
-    private void weaponShoot()
+    private void WeaponShoot()
     {
         canonAnimator.SetTrigger("Shoot");
 
         Instantiate(blastPrefab, transform.GetChild(0).GetChild(0).GetChild(0).position, transform.GetChild(0).GetChild(0).GetChild(0).rotation);
 
-        StartCoroutine(weaponCooldown());
+        StartCoroutine(WeaponCooldown());
     }
 
-    private IEnumerator weaponCooldown()
+    private IEnumerator WeaponCooldown()
     {
         canShootWeapon = false;
         yield return new WaitForSeconds(shootSpeed);

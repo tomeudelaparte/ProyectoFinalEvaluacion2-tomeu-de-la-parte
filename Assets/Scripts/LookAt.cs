@@ -4,18 +4,16 @@ using UnityEngine;
 
 public class LookAt : MonoBehaviour
 {
-    private GameObject camera; 
+    private GameObject cameraPlayer; 
     
     void Start()
     {
-        camera = GameObject.Find("Main Camera");
+        cameraPlayer = GameObject.Find("Main Camera");
     }
 
     void Update()
     {
-        transform.LookAt(camera.transform.position);
+        transform.LookAt(cameraPlayer.transform.position);
         transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
-
-
     }
 }

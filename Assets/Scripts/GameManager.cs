@@ -8,8 +8,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Screen.lockCursor = true;
-
-        Application.targetFrameRate = 60;
     }
 
     private void Update()

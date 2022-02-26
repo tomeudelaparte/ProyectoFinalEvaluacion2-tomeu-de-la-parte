@@ -64,23 +64,23 @@ public class EnemyControllerAI : MonoBehaviour
         if (canShootWeapon && IsPlayerOnSight())
         {
             audioSourceEnemy.PlayOneShot(shootSFX, 1f);
-            weaponShoot();
+            WeaponShoot();
         }
 
         transform.GetChild(0).LookAt(player.transform.position);
         transform.GetChild(0).localEulerAngles = new Vector3(0, transform.GetChild(0).localEulerAngles.y, 0);
     }
 
-    private void weaponShoot()
+    private void WeaponShoot()
     {
         canonAnimator.SetTrigger("Shoot");
 
         Instantiate(blastPrefab, transform.GetChild(0).GetChild(0).GetChild(0).position, transform.GetChild(0).GetChild(0).GetChild(0).rotation);
 
-        StartCoroutine(weaponCooldown());
+        StartCoroutine(WeaponCooldown());
     }
 
-    private IEnumerator weaponCooldown()
+    private IEnumerator WeaponCooldown()
     {
         canShootWeapon = false;
         yield return new WaitForSeconds(shootSpeed);

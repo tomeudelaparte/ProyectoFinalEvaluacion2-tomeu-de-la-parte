@@ -14,8 +14,6 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
-        Application.targetFrameRate = 60;
-
         mainPanel.SetActive(true);
         optionsPanel.SetActive(false);
         instructionsPanel.SetActive(false);
@@ -60,8 +58,6 @@ public class MainMenu : MonoBehaviour
 
     public void ExitGame()
     {
-        //UnityEditor.EditorApplication.isPlaying = false;
-
         Application.Quit();
     }
 }
