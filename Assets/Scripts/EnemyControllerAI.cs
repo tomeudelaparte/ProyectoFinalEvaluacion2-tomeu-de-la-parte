@@ -29,7 +29,7 @@ public class EnemyControllerAI : MonoBehaviour
 
     public GameObject healthBar;
     public GameObject damageTextPrefab;
-    private float damage = 0.35f;
+    private float damage;
 
     void Start()
     {
@@ -112,8 +112,10 @@ public class EnemyControllerAI : MonoBehaviour
             if (isColliding) return;
             isColliding = true;
 
+            damage = Mathf.Round(Random.Range(0.20f, 0.36f) * 100f) / 100f;
+
             GameObject textDamage = Instantiate(damageTextPrefab, other.transform.position, damageTextPrefab.transform.rotation);
-            textDamage.transform.GetChild(0).GetComponent<TextMeshPro>().text = "-" + damage.ToString();
+            textDamage.transform.GetChild(0).GetComponent<TextMeshPro>().text = "-" + damage.ToString("F2");
 
             health -= damage;
             healthBar.GetComponentInChildren<Slider>().value = health;

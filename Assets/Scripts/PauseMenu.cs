@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+    public GameObject playerInterface;
+
     public GameObject pauseMenu;
     public GameObject optionsMenu;
 
@@ -15,21 +17,41 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            checkPauseMenu();
+            ShowPauseMenu();
         }
     }
 
-    public void backButton()
-    {
-        openOptions();
-    }
-
-    public void exitToMain()
+    public void ExitToMain()
     {
         SceneManager.LoadScene(0);
     }
 
-    public void openOptions()
+    public void ShowPauseMenu()
+    {
+
+        if (!isActivePause)
+        {
+            Time.timeScale = 0;
+            Cursor.visible = true;
+
+            playerInterface.SetActive(false);
+            pauseMenu.SetActive(true);
+
+            isActivePause = true;
+        }
+        else
+        {
+            Time.timeScale = 1;
+            Cursor.visible = false;
+
+            playerInterface.SetActive(true);
+            pauseMenu.SetActive(false);
+
+            isActivePause = false;
+        }
+    }
+
+    public void ShowOptions()
     {
 
         if (!isActiveOptions)
@@ -47,27 +69,6 @@ public class PauseMenu : MonoBehaviour
 
             isActivePause = true;
             isActiveOptions = false;
-        }
-    }
-
-    public void checkPauseMenu()
-    {
-
-        if (!isActivePause)
-        {
-            Time.timeScale = 0;
-            Screen.lockCursor = false;
-            pauseMenu.SetActive(true);
-
-            isActivePause = true;
-        }
-        else
-        {
-            Time.timeScale = 1;
-            pauseMenu.SetActive(false);
-            Screen.lockCursor = true;
-
-            isActivePause = false;
         }
     }
 }

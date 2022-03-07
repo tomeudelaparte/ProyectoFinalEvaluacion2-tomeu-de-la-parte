@@ -8,8 +8,12 @@ TagManager:
   - Enemy
   - PlayerBlast
   - EnemyBlast
-  - HealthPowerUp
-  - ShieldPowerUp
+  - SpawnPointN
+  - SpawnPointS
+  - ShieldSpawnPoint
+  - HealthSpawnPoint
+  - ShieldItem
+  - HealthItem
   layers:
   - Default
   - TransparentFX

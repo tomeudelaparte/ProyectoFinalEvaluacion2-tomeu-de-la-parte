@@ -22,13 +22,13 @@ public class PlayerController : MonoBehaviour
     private float health = 1f;
     private float shield = 1f;
 
-    private float speedMovement = 20f;
+    private float speedMovement = 40f;
     private float speedRotation = 70f;
     private float maxVelocity = 50f;
 
     private float shootSpeed = 0.25f;
 
-    private float groundDistance = 6f;
+    private float groundDistance = 7f;
     private bool isColliding = false;
 
     private void Start()
@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("HealthPowerUp"))
+        if (other.gameObject.CompareTag("HealthItem"))
         {
             if (health < 1f)
             {
@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (other.gameObject.CompareTag("ShieldPowerUp"))
+        if (other.gameObject.CompareTag("ShieldItem"))
         {
             if (shield < 1f)
             {
@@ -127,13 +127,13 @@ public class PlayerController : MonoBehaviour
 
             if (shield > 0)
             {
-                shield -= 0.35f;
+                shield -= Mathf.Round(Random.Range(0.30f, 0.36f) * 100f) / 100f;
                 shieldBar.GetComponentInChildren<Slider>().value = shield;
 
             }
             else if (health > 0)
             {
-                health -= 0.25f;
+                health -= Mathf.Round(Random.Range(0.20f, 0.36f) * 100f) / 100f;
                 healthBar.GetComponentInChildren<Slider>().value = health;
             }
 
