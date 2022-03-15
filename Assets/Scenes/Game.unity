@@ -1509,6 +1509,9 @@ MonoBehaviour:
   enemyPrefab: {fileID: 8671137006389851428, guid: e77ff91f0140bac479eaff681790fe3f, type: 3}
   healthPrefab: {fileID: 6959429562140073799, guid: 9c125df358d269c42a8417a7938046b0, type: 3}
   shieldPrefab: {fileID: 7037054601207203812, guid: 2e6bdd2145d28fd4794d632c4ea62aa2, type: 3}
+  playerInterface: {fileID: 390499735}
+  pauseMenu: {fileID: 456941299}
+  optionsMenu: {fileID: 1053332460}
   levelPanel:
   - {fileID: 1584772151}
   - {fileID: 93043313}
@@ -11042,18 +11045,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 179889792050404225, guid: da96c0b99001ff0408f3d8eb74fa3d9c, type: 3}
-      propertyPath: m_Name
-      value: Cube
-      objectReference: {fileID: 0}
-    - target: {fileID: 179889792114567410, guid: da96c0b99001ff0408f3d8eb74fa3d9c, type: 3}
-      propertyPath: m_Name
-      value: Cube
-      objectReference: {fileID: 0}
-    - target: {fileID: 179889792286409774, guid: da96c0b99001ff0408f3d8eb74fa3d9c, type: 3}
-      propertyPath: m_Name
-      value: Cube
-      objectReference: {fileID: 0}
     - target: {fileID: 179889792325617397, guid: da96c0b99001ff0408f3d8eb74fa3d9c, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -11101,38 +11092,6 @@ PrefabInstance:
     - target: {fileID: 179889792325617398, guid: da96c0b99001ff0408f3d8eb74fa3d9c, type: 3}
       propertyPath: m_Name
       value: Map
-      objectReference: {fileID: 0}
-    - target: {fileID: 4909238595591298298, guid: da96c0b99001ff0408f3d8eb74fa3d9c, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4909238595591298298, guid: da96c0b99001ff0408f3d8eb74fa3d9c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4909238595591298298, guid: da96c0b99001ff0408f3d8eb74fa3d9c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 507.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4909238595591298299, guid: da96c0b99001ff0408f3d8eb74fa3d9c, type: 3}
-      propertyPath: m_Name
-      value: Cube
-      objectReference: {fileID: 0}
-    - target: {fileID: 4909238595815856062, guid: da96c0b99001ff0408f3d8eb74fa3d9c, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4909238595815856062, guid: da96c0b99001ff0408f3d8eb74fa3d9c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4909238595815856062, guid: da96c0b99001ff0408f3d8eb74fa3d9c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -507.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4909238595815856063, guid: da96c0b99001ff0408f3d8eb74fa3d9c, type: 3}
-      propertyPath: m_Name
-      value: Cube
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da96c0b99001ff0408f3d8eb74fa3d9c, type: 3}

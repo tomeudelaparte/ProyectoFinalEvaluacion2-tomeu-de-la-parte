@@ -1018,7 +1018,7 @@ GameObject:
   - component: {fileID: 179889792050404230}
   - component: {fileID: 179889792050404231}
   m_Layer: 0
-  m_Name: Cube (3)
+  m_Name: Cube
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1145,7 +1145,7 @@ GameObject:
   - component: {fileID: 179889792114567415}
   - component: {fileID: 179889792114567408}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Cube
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1557,7 +1557,7 @@ GameObject:
   - component: {fileID: 179889792286409811}
   - component: {fileID: 179889792286409772}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: Cube
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4784,7 +4784,7 @@ GameObject:
   - component: {fileID: 4909238595591298300}
   - component: {fileID: 4909238595591298301}
   m_Layer: 0
-  m_Name: Cube (5)
+  m_Name: Cube
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4798,8 +4798,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4909238595591298299}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 1.1, y: 10, z: 507.1}
-  m_LocalScale: {x: 85, y: 2.7961993, z: 20}
+  m_LocalPosition: {x: 0, y: 10, z: 507.4}
+  m_LocalScale: {x: 85, y: 10, z: 20}
   m_Children: []
   m_Father: {fileID: 179889792379314350}
   m_RootOrder: 28
@@ -4879,7 +4879,7 @@ GameObject:
   - component: {fileID: 4909238595815856032}
   - component: {fileID: 4909238595815856033}
   m_Layer: 0
-  m_Name: Cube (6)
+  m_Name: Cube
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4893,8 +4893,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4909238595815856063}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 1.1, y: 10, z: -504.3}
-  m_LocalScale: {x: 85, y: 2.7961993, z: 20}
+  m_LocalPosition: {x: 0, y: 10, z: -507.4}
+  m_LocalScale: {x: 85, y: 10, z: 20}
   m_Children: []
   m_Father: {fileID: 179889792379314350}
   m_RootOrder: 29

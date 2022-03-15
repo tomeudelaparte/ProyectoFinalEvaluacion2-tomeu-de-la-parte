@@ -20,22 +20,21 @@ public class GameManager : MonoBehaviour
     private GameObject[] healthItemsAvailable;
     private GameObject[] shieldItemsAvailable;
 
+    public GameObject playerInterface;
+    public GameObject pauseMenu;
+    public GameObject optionsMenu;
 
     private int waveIndex = 0;
-    private int[] enemiesPerWave = { 5, 10, 14 };
+    private int[] enemiesPerWave = {5};
     private int enemiesLeft;
 
     public GameObject[] levelPanel;
 
     private bool isGameOver;
+    private float gameTime;
 
     void Start()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
-        isGameOver = false;
-
         player = GameObject.FindGameObjectWithTag("Player");
 
         enemySpawnPositionsNorth = GameObject.FindGameObjectsWithTag("SpawnPointN");
@@ -44,6 +43,15 @@ public class GameManager : MonoBehaviour
         healthSpawnPositions = GameObject.FindGameObjectsWithTag("HealthSpawnPoint");
         shieldSpawnPositions = GameObject.FindGameObjectsWithTag("ShieldSpawnPoint");
 
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        playerInterface.SetActive(true);
+        pauseMenu.SetActive(false);
+        optionsMenu.SetActive(false);
+
+        isGameOver = false;
+
         SpawnEnemyWave(enemiesPerWave[waveIndex]);
 
         SpawnHealthShield();
@@ -51,6 +59,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        gameTime += Time.deltaTime;
+
         if(!isGameOver)
         {
             enemiesLeft = FindObjectsOfType<EnemyControllerAI>().Length;
@@ -59,7 +69,7 @@ public class GameManager : MonoBehaviour
             {
                 waveIndex++;
 
-                if (waveIndex <= enemiesPerWave.Length)
+                if (waveIndex < enemiesPerWave.Length)
                 {
                     foreach (GameObject text in levelPanel)
                     {
@@ -72,7 +82,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    GameOver();
+                   MissionComplete();
                 }
             }
         }
@@ -125,13 +135,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+
     private void RestartGame()
     {
         SceneManager.LoadScene(0);
     }
 
-    private void GameOver()
+    private void MissionComplete()
+    {
+        Time.timeScale = 0;
+
+        Debug.Log("MISSION COMPLETE: " + gameTime.ToString("F1"));
+    }
+
+    public void GameOver()
     {
         isGameOver = true;
+        Time.timeScale = 0;
     }
 }

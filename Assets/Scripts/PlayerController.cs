@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    private GameManager gameManager;
+
     public GameObject blastPrefab;
     private Rigidbody rigidbodyPlayer;
     private AudioSource audioSourcePlayer;
@@ -31,8 +33,12 @@ public class PlayerController : MonoBehaviour
     private float groundDistance = 7f;
     private bool isColliding = false;
 
+    private float xRotation; 
+
     private void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
+
         rigidbodyPlayer = GetComponent<Rigidbody>();
         audioSourcePlayer = GetComponent<AudioSource>();
         canonAnimator = transform.GetChild(0).GetChild(0).GetComponent<Animator>();
@@ -63,9 +69,12 @@ public class PlayerController : MonoBehaviour
         mouseInputX = Input.GetAxis("Mouse X") * mouseSensitivity;
         mouseInputY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
+        xRotation -= mouseInputY;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
         transform.GetChild(0).transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * mouseInputX);
         
-        transform.GetChild(0).GetChild(0).transform.Rotate(Vector3.left * speedRotation * Time.deltaTime * mouseInputY);
+        transform.GetChild(0).GetChild(0).transform.Rotate(Vector3.left * speedRotation * Time.deltaTime * xRotation);
     }
 
     void Update()
@@ -139,7 +148,7 @@ public class PlayerController : MonoBehaviour
 
             if (health <= 0)
             {
-                //Time.timeScale = 0;
+                gameManager.GameOver();
             }
 
             StartCoroutine(TriggerEnterOn());
