@@ -196,6 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blastPrefab: {fileID: 8464517445442818275, guid: adbfa306c145461468fcee28e6e0cd78, type: 3}
+  canon: {fileID: 5054094521373241083}
   shootSFX: {fileID: 8300000, guid: 702800ca432bc6647a666fb8a0514d2c, type: 3}
   healthBar: {fileID: 0}
   shieldBar: {fileID: 0}

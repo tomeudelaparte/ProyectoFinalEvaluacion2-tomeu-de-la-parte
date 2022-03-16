@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     public GameObject optionsMenu;
 
     private int waveIndex = 0;
-    private int[] enemiesPerWave = {5};
+    private int[] enemiesPerWave = { 5, 9, 14};
     private int enemiesLeft;
 
     public GameObject[] levelPanel;
@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
         shieldSpawnPositions = GameObject.FindGameObjectsWithTag("ShieldSpawnPoint");
 
         Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Confined;
 
         playerInterface.SetActive(true);
         pauseMenu.SetActive(false);
@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
     {
         gameTime += Time.deltaTime;
 
-        if(!isGameOver)
+        if (!isGameOver)
         {
             enemiesLeft = FindObjectsOfType<EnemyControllerAI>().Length;
 
@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                   MissionComplete();
+                    MissionComplete();
                 }
             }
         }
@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
         healthItemsAvailable = GameObject.FindGameObjectsWithTag("HealthItem");
         shieldItemsAvailable = GameObject.FindGameObjectsWithTag("ShieldItem");
 
-        if(healthItemsAvailable.Length > 0)
+        if (healthItemsAvailable.Length > 0)
         {
             foreach (GameObject item in healthItemsAvailable)
             {
@@ -134,8 +134,6 @@ public class GameManager : MonoBehaviour
             Instantiate(shieldPrefab, spawnPoint.transform.position, shieldPrefab.transform.rotation);
         }
     }
-
-
 
     private void RestartGame()
     {

@@ -17,6 +17,8 @@ public class MainMenu : MonoBehaviour
         mainPanel.SetActive(true);
         optionsPanel.SetActive(false);
         instructionsPanel.SetActive(false);
+
+        Time.timeScale = 1;
     }
 
     public void StartGame()

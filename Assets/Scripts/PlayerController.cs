@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rigidbodyPlayer;
     private AudioSource audioSourcePlayer;
 
+    public GameObject canon;
     public AudioClip shootSFX;
     private Animator canonAnimator;
 
@@ -24,7 +25,7 @@ public class PlayerController : MonoBehaviour
     private float health = 1f;
     private float shield = 1f;
 
-    private float speedMovement = 40f;
+    private float speedMovement = 50f;
     private float speedRotation = 70f;
     private float maxVelocity = 50f;
 
@@ -33,7 +34,7 @@ public class PlayerController : MonoBehaviour
     private float groundDistance = 7f;
     private bool isColliding = false;
 
-    private float xRotation; 
+    private float xRotation;
 
     private void Start()
     {
@@ -41,40 +42,10 @@ public class PlayerController : MonoBehaviour
 
         rigidbodyPlayer = GetComponent<Rigidbody>();
         audioSourcePlayer = GetComponent<AudioSource>();
-        canonAnimator = transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+        canonAnimator = canon.GetComponent<Animator>();
 
         shieldBar.GetComponentInChildren<Slider>().value = shield;
         healthBar.GetComponentInChildren<Slider>().value = health;
-    }
-
-    private void FixedUpdate()
-    {
-        rigidbodyPlayer.AddForce(Vector3.up * -100);
-
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
-
-        transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * horizontalInput);
-
-        if (IsGrounded())
-        {
-            rigidbodyPlayer.AddRelativeForce(Vector3.forward * speedMovement * verticalInput, ForceMode.VelocityChange);
-
-            if (rigidbodyPlayer.velocity.magnitude > maxVelocity)
-            {
-                rigidbodyPlayer.velocity = rigidbodyPlayer.velocity.normalized * maxVelocity;
-            }
-        }
-
-        mouseInputX = Input.GetAxis("Mouse X") * mouseSensitivity;
-        mouseInputY = Input.GetAxis("Mouse Y") * mouseSensitivity;
-
-        xRotation -= mouseInputY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-        transform.GetChild(0).transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * mouseInputX);
-        
-        transform.GetChild(0).GetChild(0).transform.Rotate(Vector3.left * speedRotation * Time.deltaTime * xRotation);
     }
 
     void Update()
@@ -87,6 +58,36 @@ public class PlayerController : MonoBehaviour
 
             WeaponShoot();
         }
+    }
+
+    private void FixedUpdate()
+    {
+        horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
+
+        mouseInputX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        mouseInputY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+
+        transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * horizontalInput);
+
+        transform.GetChild(0).transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * mouseInputX);
+
+        xRotation -= mouseInputY * speedRotation * Time.deltaTime;
+        xRotation = Mathf.Clamp(xRotation, -15f, 15f);
+
+        canon.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+
+        if (IsGrounded())
+        {
+            rigidbodyPlayer.AddRelativeForce(Vector3.forward * speedMovement * verticalInput, ForceMode.VelocityChange);
+
+            if (rigidbodyPlayer.velocity.magnitude > maxVelocity)
+            {
+                rigidbodyPlayer.velocity = rigidbodyPlayer.velocity.normalized * maxVelocity;
+            }
+        }
+
+        rigidbodyPlayer.AddForce(Vector3.up * -100);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -165,7 +166,7 @@ public class PlayerController : MonoBehaviour
     {
         canonAnimator.SetTrigger("Shoot");
 
-        Instantiate(blastPrefab, transform.GetChild(0).GetChild(0).GetChild(0).position, transform.GetChild(0).GetChild(0).GetChild(0).rotation);
+        Instantiate(blastPrefab, canon.transform.GetChild(0).position, canon.transform.GetChild(0).rotation);
 
         StartCoroutine(WeaponCooldown());
     }
@@ -180,7 +181,6 @@ public class PlayerController : MonoBehaviour
 
     private bool IsGrounded()
     {
-
         RaycastHit hitData;
 
         Ray ray = new Ray(transform.position, -transform.up);
