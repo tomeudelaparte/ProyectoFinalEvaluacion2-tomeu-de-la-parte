@@ -11,7 +11,6 @@ public class PauseMenu : MonoBehaviour
     public GameObject optionsMenu;
 
     private bool isActivePause = false;
-    private bool isActiveOptions = false;
 
     void Update()
     {
@@ -21,18 +20,13 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    public void ExitToMain()
-    {
-        SceneManager.LoadScene(0);
-    }
-
     public void ShowPauseMenu()
     {
-
         if (!isActivePause)
         {
             Time.timeScale = 0;
-            Cursor.visible = true;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.None;
 
             playerInterface.SetActive(false);
             pauseMenu.SetActive(true);
@@ -43,32 +37,18 @@ public class PauseMenu : MonoBehaviour
         {
             Time.timeScale = 1;
             Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Confined;
 
             playerInterface.SetActive(true);
             pauseMenu.SetActive(false);
+            optionsMenu.SetActive(false);
+
 
             isActivePause = false;
         }
     }
-
-    public void ShowOptions()
+    public void ExitToMain()
     {
-
-        if (!isActiveOptions)
-        {
-            pauseMenu.SetActive(false);
-            optionsMenu.SetActive(true);
-
-            isActivePause = false;
-            isActiveOptions = true;
-        }
-        else
-        {
-            pauseMenu.SetActive(true);
-            optionsMenu.SetActive(false);
-
-            isActivePause = true;
-            isActiveOptions = false;
-        }
+        SceneManager.LoadScene(0);
     }
 }

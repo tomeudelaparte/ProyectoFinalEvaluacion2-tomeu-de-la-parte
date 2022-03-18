@@ -55,7 +55,7 @@ public class OptionsMenu : MonoBehaviour
 
     private void Update()
     {
-        sliderFrameText.GetComponent<TextMeshProUGUI>().text = videoSettings[4].option.GetComponentInChildren<Slider>().value.ToString();
+        sliderFrameText.GetComponent<TextMeshProUGUI>().text = videoSettings[3].option.GetComponentInChildren<Slider>().value.ToString();
     }
 
     public void SaveOptions()
@@ -85,9 +85,8 @@ public class OptionsMenu : MonoBehaviour
         videoSettings[0].option.GetComponentInChildren<TMP_Dropdown>().value = int.Parse(settingsManager.LoadPrefs(videoSettings[0].key));
         videoSettings[1].option.GetComponentInChildren<TMP_Dropdown>().value = int.Parse(settingsManager.LoadPrefs(videoSettings[1].key));
         videoSettings[2].option.GetComponentInChildren<Toggle>().isOn = bool.Parse(settingsManager.LoadPrefs(videoSettings[2].key));
-        videoSettings[3].option.GetComponentInChildren<Toggle>().isOn = bool.Parse(settingsManager.LoadPrefs(videoSettings[3].key));
-        videoSettings[4].option.GetComponentInChildren<Slider>().value = float.Parse(settingsManager.LoadPrefs(videoSettings[4].key));
-        videoSettings[5].option.GetComponentInChildren<Toggle>().isOn = bool.Parse(settingsManager.LoadPrefs(videoSettings[5].key));
+        videoSettings[3].option.GetComponentInChildren<Slider>().value = float.Parse(settingsManager.LoadPrefs(videoSettings[3].key));
+        videoSettings[4].option.GetComponentInChildren<Toggle>().isOn = bool.Parse(settingsManager.LoadPrefs(videoSettings[4].key));
     }
 
     private void LoadAudioSettings()
@@ -102,9 +101,8 @@ public class OptionsMenu : MonoBehaviour
         settingsManager.SavePrefs(videoSettings[0].key, videoSettings[0].option.GetComponentInChildren<TMP_Dropdown>().value.ToString());
         settingsManager.SavePrefs(videoSettings[1].key, videoSettings[1].option.GetComponentInChildren<TMP_Dropdown>().value.ToString());
         settingsManager.SavePrefs(videoSettings[2].key, videoSettings[2].option.GetComponentInChildren<Toggle>().isOn.ToString());
-        settingsManager.SavePrefs(videoSettings[3].key, videoSettings[3].option.GetComponentInChildren<Toggle>().isOn.ToString());
-        settingsManager.SavePrefs(videoSettings[4].key, videoSettings[4].option.GetComponentInChildren<Slider>().value.ToString()); ;
-        settingsManager.SavePrefs(videoSettings[5].key, videoSettings[5].option.GetComponentInChildren<Toggle>().isOn.ToString());
+        settingsManager.SavePrefs(videoSettings[3].key, videoSettings[3].option.GetComponentInChildren<Slider>().value.ToString()); ;
+        settingsManager.SavePrefs(videoSettings[4].key, videoSettings[4].option.GetComponentInChildren<Toggle>().isOn.ToString());
     }
 
     private void SaveAudioSettings()
@@ -161,10 +159,10 @@ public class OptionsMenu : MonoBehaviour
             resolutionList[int.Parse(settingsManager.LoadPrefs(videoSettings[1].key))].height,
             int.Parse(settingsManager.LoadPrefs(videoSettings[0].key)));
 
-        settingsManager.SetMaxFrames(int.Parse(settingsManager.LoadPrefs(videoSettings[4].key)));
+        settingsManager.SetMaxFrames(int.Parse(settingsManager.LoadPrefs(videoSettings[3].key)));
 
         settingsManager.SetVerticalSync(bool.Parse(settingsManager.LoadPrefs(videoSettings[2].key)));
 
-        settingsManager.SetShowFps(bool.Parse(settingsManager.LoadPrefs(videoSettings[5].key)));
+        settingsManager.SetShowFps(bool.Parse(settingsManager.LoadPrefs(videoSettings[4].key)));
     }
 }

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class SettingsManager : MonoBehaviour
 {
@@ -73,18 +72,6 @@ public class SettingsManager : MonoBehaviour
     public void SetMaxFrames(int fps)
     {
         Application.targetFrameRate = fps;
-    }
-
-    public void SetAntialiasing(bool isActivated)
-    {
-        if (isActivated)
-        {
-            //
-        }
-        else
-        {
-            //
-        }
     }
 
     public void SetShowFps(bool isActivated)

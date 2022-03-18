@@ -178,7 +178,6 @@ public class PlayerController : MonoBehaviour
         canShootWeapon = true;
     }
 
-
     private bool IsGrounded()
     {
         RaycastHit hitData;

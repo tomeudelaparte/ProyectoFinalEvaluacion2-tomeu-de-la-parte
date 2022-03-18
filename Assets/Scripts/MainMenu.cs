@@ -9,9 +9,6 @@ public class MainMenu : MonoBehaviour
     public GameObject optionsPanel;
     public GameObject instructionsPanel;
 
-    private bool optionsIsActive = false;
-    private bool instructionsIsActive = false;
-
     private void Start()
     {
         mainPanel.SetActive(true);
@@ -24,38 +21,6 @@ public class MainMenu : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene(1);
-    }
-
-    public void OpenCloseOptions()
-    {
-        if (!optionsIsActive)
-        {
-            optionsIsActive = true;
-            optionsPanel.SetActive(true);
-            mainPanel.SetActive(false);
-        }
-        else
-        {
-            optionsIsActive = false;
-            optionsPanel.SetActive(false);
-            mainPanel.SetActive(true);
-        }
-    }
-
-    public void OpenCloseInstructions()
-    {
-        if (!instructionsIsActive)
-        {
-            instructionsIsActive = true;
-            instructionsPanel.SetActive(true);
-            mainPanel.SetActive(false);
-        }
-        else
-        {
-            instructionsIsActive = false;
-            instructionsPanel.SetActive(false);
-            mainPanel.SetActive(true);
-        }
     }
 
     public void ExitGame()
