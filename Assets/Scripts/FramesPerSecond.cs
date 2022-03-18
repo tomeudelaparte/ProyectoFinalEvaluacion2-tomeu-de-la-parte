@@ -5,12 +5,12 @@ using TMPro;
 
 public class FramesPerSecond : MonoBehaviour
 {
-    public float deltaTime;
+    private float deltaTime, fps;
 
     void Update()
     {
         deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
-        float fps = 1.0f / deltaTime;
+        fps = 1.0f / deltaTime;
         gameObject.GetComponent<TextMeshProUGUI>().text = Mathf.Ceil(fps).ToString();
     }
 }

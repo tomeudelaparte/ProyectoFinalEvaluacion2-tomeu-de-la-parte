@@ -7,21 +7,19 @@ public class PlayerController : MonoBehaviour
 {
     private GameManager gameManager;
 
+    public GameObject canon;
+    public GameObject turret;
     public GameObject blastPrefab;
+    public AudioClip shootSFX;
+
     private Rigidbody rigidbodyPlayer;
     private AudioSource audioSourcePlayer;
-
-    public GameObject canon;
-    public AudioClip shootSFX;
     private Animator canonAnimator;
 
+    private float horizontalInput, verticalInput, mouseInputX, mouseInputY;
     private float mouseSensitivity = 2;
 
-    private float horizontalInput, verticalInput, mouseInputX, mouseInputY;
-
-    private bool canShootWeapon = true;
-
-    public GameObject healthBar, shieldBar;
+    public GameObject healthBarUI, shieldBarUI;
     private float health = 1f;
     private float shield = 1f;
 
@@ -29,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private float speedRotation = 70f;
     private float maxVelocity = 50f;
 
+    private bool canShootWeapon = true;
     private float shootSpeed = 0.25f;
 
     private float groundDistance = 7f;
@@ -44,8 +43,8 @@ public class PlayerController : MonoBehaviour
         audioSourcePlayer = GetComponent<AudioSource>();
         canonAnimator = canon.GetComponent<Animator>();
 
-        shieldBar.GetComponentInChildren<Slider>().value = shield;
-        healthBar.GetComponentInChildren<Slider>().value = health;
+        shieldBarUI.GetComponentInChildren<Slider>().value = shield;
+        healthBarUI.GetComponentInChildren<Slider>().value = health;
     }
 
     void Update()
@@ -69,12 +68,10 @@ public class PlayerController : MonoBehaviour
         mouseInputY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
         transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * horizontalInput);
-
-        transform.GetChild(0).transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * mouseInputX);
+        turret.transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * mouseInputX);
 
         xRotation -= mouseInputY * speedRotation * Time.deltaTime;
         xRotation = Mathf.Clamp(xRotation, -15f, 15f);
-
         canon.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
 
         if (IsGrounded())
@@ -105,7 +102,7 @@ public class PlayerController : MonoBehaviour
                     health += 0.5f;
                 }
 
-                healthBar.GetComponentInChildren<Slider>().value = health;
+                healthBarUI.GetComponentInChildren<Slider>().value = health;
 
                 Destroy(other.gameObject);
             }
@@ -124,7 +121,7 @@ public class PlayerController : MonoBehaviour
                     shield += 1f;
                 }
 
-                shieldBar.GetComponentInChildren<Slider>().value = shield;
+                shieldBarUI.GetComponentInChildren<Slider>().value = shield;
 
                 Destroy(other.gameObject);
             }
@@ -138,13 +135,13 @@ public class PlayerController : MonoBehaviour
             if (shield > 0)
             {
                 shield -= Mathf.Round(Random.Range(0.30f, 0.36f) * 100f) / 100f;
-                shieldBar.GetComponentInChildren<Slider>().value = shield;
+                shieldBarUI.GetComponentInChildren<Slider>().value = shield;
 
             }
             else if (health > 0)
             {
                 health -= Mathf.Round(Random.Range(0.20f, 0.36f) * 100f) / 100f;
-                healthBar.GetComponentInChildren<Slider>().value = health;
+                healthBarUI.GetComponentInChildren<Slider>().value = health;
             }
 
             if (health <= 0)

@@ -7,29 +7,30 @@ using TMPro;
 
 public class EnemyControllerAI : MonoBehaviour
 {
-    private GameObject player;
-    private NavMeshAgent enemyAgent;
+    public GameObject canon;
+    public GameObject turret;
     public GameObject blastPrefab;
-    private AudioSource audioSourceEnemy;
-
+    public GameObject healthBarUI;
+    public GameObject damageTextPrefab;
     public AudioClip shootSFX;
 
-    private Vector3 directionToPlayer, newPosition;
-
-    private float playerDetectionDistance = 2000f;
+    private GameObject player;
+    private NavMeshAgent enemyAgent;
+    private AudioSource audioSourceEnemy;
+    private Animator canonAnimator;
 
     public float health = 1f;
 
     private float shootSpeed = 2f;
     private bool canShootWeapon = true;
 
-    private Animator canonAnimator;
+    private Vector3 directionToPlayer, newPosition;
+
+    private float playerDetectionDistance = 2000f;
 
     private bool isColliding = false;
 
-    public GameObject healthBar;
-    public GameObject damageTextPrefab;
-    private float damage;
+    private float damage, distance;
 
     void Start()
     {
@@ -37,15 +38,14 @@ public class EnemyControllerAI : MonoBehaviour
         audioSourceEnemy = GetComponent<AudioSource>();
         enemyAgent = GetComponent<NavMeshAgent>();
 
-        canonAnimator = transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+        canonAnimator = canon.GetComponent<Animator>();
 
-        healthBar.GetComponentInChildren<Slider>().value = health;
+        healthBarUI.GetComponentInChildren<Slider>().value = health;
     }
 
     void Update()
     {
-
-        float distance = Vector3.Distance(transform.position, player.transform.position);
+        distance = Vector3.Distance(transform.position, player.transform.position);
 
         if (distance < playerDetectionDistance && distance >= 100)
         {
@@ -67,15 +67,18 @@ public class EnemyControllerAI : MonoBehaviour
             WeaponShoot();
         }
 
-        transform.GetChild(0).LookAt(player.transform.position);
-        transform.GetChild(0).localEulerAngles = new Vector3(0, transform.GetChild(0).localEulerAngles.y, 0);
+        turret.transform.LookAt(player.transform.position);
+        turret.transform.localEulerAngles = new Vector3(0, turret.transform.localEulerAngles.y, 0);
+
+        canon.transform.LookAt(player.transform.position);
+        canon.transform.localEulerAngles = new Vector3(canon.transform.localEulerAngles.x, 0, 0);
     }
 
     private void WeaponShoot()
     {
         canonAnimator.SetTrigger("Shoot");
 
-        Instantiate(blastPrefab, transform.GetChild(0).GetChild(0).GetChild(0).position, transform.GetChild(0).GetChild(0).GetChild(0).rotation);
+        Instantiate(blastPrefab, canon.transform.GetChild(0).position, canon.transform.GetChild(0).rotation);
 
         StartCoroutine(WeaponCooldown());
     }
@@ -91,9 +94,9 @@ public class EnemyControllerAI : MonoBehaviour
     {
         RaycastHit hitData;
 
-        Ray ray = new Ray(transform.GetChild(0).GetChild(0).position, transform.GetChild(0).GetChild(0).forward);
+        Ray ray = new Ray(canon.transform.position, canon.transform.forward);
 
-        Debug.DrawRay(transform.GetChild(0).GetChild(0).position, transform.GetChild(0).GetChild(0).forward * playerDetectionDistance, Color.yellow);
+        Debug.DrawRay(canon.transform.position, canon.transform.forward * playerDetectionDistance, Color.yellow);
 
         if (Physics.Raycast(ray, out hitData, playerDetectionDistance))
         {
@@ -118,11 +121,11 @@ public class EnemyControllerAI : MonoBehaviour
             textDamage.transform.GetChild(0).GetComponent<TextMeshPro>().text = "-" + damage.ToString("F2");
 
             health -= damage;
-            healthBar.GetComponentInChildren<Slider>().value = health;
+            healthBarUI.GetComponentInChildren<Slider>().value = health;
 
             if (health < 1)
             {
-                healthBar.SetActive(true);
+                healthBarUI.SetActive(true);
             }
 
             if (health <= 0)

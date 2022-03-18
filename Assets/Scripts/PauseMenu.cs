@@ -5,16 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject playerInterface;
+    private GameManager gameManager;
 
+    public GameObject playerInterface;
     public GameObject pauseMenu;
     public GameObject optionsMenu;
 
     private bool isActivePause = false;
 
+    void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !gameManager.isGameOver)
         {
             ShowPauseMenu();
         }
@@ -25,7 +31,7 @@ public class PauseMenu : MonoBehaviour
         if (!isActivePause)
         {
             Time.timeScale = 0;
-            Cursor.visible = false;
+            Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
 
             playerInterface.SetActive(false);
@@ -35,20 +41,20 @@ public class PauseMenu : MonoBehaviour
         }
         else
         {
-            Time.timeScale = 1;
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Confined;
-
-            playerInterface.SetActive(true);
-            pauseMenu.SetActive(false);
-            optionsMenu.SetActive(false);
-
-
-            isActivePause = false;
+            exit();
         }
     }
-    public void ExitToMain()
+
+    public void exit()
     {
-        SceneManager.LoadScene(0);
+        Time.timeScale = 1;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
+
+        playerInterface.SetActive(true);
+        pauseMenu.SetActive(false);
+        optionsMenu.SetActive(false);
+
+        isActivePause = false;
     }
 }

@@ -8,6 +8,12 @@ public class GameManager : MonoBehaviour
 {
     private GameObject player;
 
+    public GameObject playerInterface;
+    public GameObject pauseMenu;
+    public GameObject optionsMenu;
+    public GameObject objectiveCompletePanel;
+    public GameObject gameOverPanel;
+
     public GameObject enemyPrefab;
     public GameObject healthPrefab;
     public GameObject shieldPrefab;
@@ -20,17 +26,14 @@ public class GameManager : MonoBehaviour
     private GameObject[] healthItemsAvailable;
     private GameObject[] shieldItemsAvailable;
 
-    public GameObject playerInterface;
-    public GameObject pauseMenu;
-    public GameObject optionsMenu;
-
     private int waveIndex = 0;
-    private int[] enemiesPerWave = { 5, 9, 14};
+    private int[] enemiesPerWave = {5, 9};
     private int enemiesLeft;
 
-    public GameObject[] levelPanel;
+    public TextMeshPro[] levelNumberPanel;
+    public TextMeshProUGUI gameTimeText;
 
-    private bool isGameOver;
+    public bool isGameOver, isObjectiveComplete;
     private float gameTime;
 
     void Start()
@@ -43,14 +46,19 @@ public class GameManager : MonoBehaviour
         healthSpawnPositions = GameObject.FindGameObjectsWithTag("HealthSpawnPoint");
         shieldSpawnPositions = GameObject.FindGameObjectsWithTag("ShieldSpawnPoint");
 
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Confined;
-
         playerInterface.SetActive(true);
         pauseMenu.SetActive(false);
         optionsMenu.SetActive(false);
+        objectiveCompletePanel.SetActive(false);
+        gameOverPanel.SetActive(false);
 
         isGameOver = false;
+        isObjectiveComplete = false;
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
+
+        Time.timeScale = 1;
 
         SpawnEnemyWave(enemiesPerWave[waveIndex]);
 
@@ -71,9 +79,9 @@ public class GameManager : MonoBehaviour
 
                 if (waveIndex < enemiesPerWave.Length)
                 {
-                    foreach (GameObject text in levelPanel)
+                    foreach (TextMeshPro level in levelNumberPanel)
                     {
-                        text.GetComponent<TextMeshPro>().text = "0" + (waveIndex + 1);
+                        level.text = "0" + (waveIndex + 1);
                     }
 
                     SpawnHealthShield();
@@ -82,7 +90,12 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    MissionComplete();
+                    if(!isObjectiveComplete)
+                    {
+                        isObjectiveComplete = true;
+
+                        ObjectiveComplete();
+                    }
                 }
             }
         }
@@ -135,21 +148,39 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void RestartGame()
+    private void ObjectiveComplete()
     {
-        SceneManager.LoadScene(0);
-    }
-
-    private void MissionComplete()
-    {
+        isGameOver = true;
         Time.timeScale = 0;
 
-        Debug.Log("MISSION COMPLETE: " + gameTime.ToString("F1"));
+        objectiveCompletePanel.SetActive(true);
+        playerInterface.SetActive(false);
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        gameTimeText.text = gameTime.ToString("F1") + "s";
     }
 
     public void GameOver()
     {
         isGameOver = true;
         Time.timeScale = 0;
+
+        gameOverPanel.SetActive(true);
+        playerInterface.SetActive(false);
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
+
+    public void ExitToMain()
+    {
+        SceneManager.LoadScene(0);
+    }
+    public void PlayAgain()
+    {
+        SceneManager.LoadScene(1);
+    }
+
 }

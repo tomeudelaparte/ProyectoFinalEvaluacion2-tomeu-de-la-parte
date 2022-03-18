@@ -26,8 +26,8 @@ public class OptionsMenu : MonoBehaviour
         }
     }
 
-    private SettingsManager settingsManager;
-    public GameObject sliderFrameText;
+    private PlayerPrefsManager settingsManager;
+    public TextMeshProUGUI sliderFramesText;
 
     public List<OptionClass> videoSettings = new List<OptionClass>();
     public List<OptionClass> audioSettings = new List<OptionClass>();
@@ -37,7 +37,7 @@ public class OptionsMenu : MonoBehaviour
 
     void Start()
     {
-        settingsManager = FindObjectOfType<SettingsManager>();
+        settingsManager = FindObjectOfType<PlayerPrefsManager>();
 
         settingsManager.DeleteAll();
 
@@ -55,7 +55,7 @@ public class OptionsMenu : MonoBehaviour
 
     private void Update()
     {
-        sliderFrameText.GetComponent<TextMeshProUGUI>().text = videoSettings[3].option.GetComponentInChildren<Slider>().value.ToString();
+        sliderFramesText.text = videoSettings[3].option.GetComponentInChildren<Slider>().value.ToString();
     }
 
     public void SaveOptions()
@@ -163,6 +163,6 @@ public class OptionsMenu : MonoBehaviour
 
         settingsManager.SetVerticalSync(bool.Parse(settingsManager.LoadPrefs(videoSettings[2].key)));
 
-        settingsManager.SetShowFps(bool.Parse(settingsManager.LoadPrefs(videoSettings[4].key)));
+        //settingsManager.SetShowFps(bool.Parse(settingsManager.LoadPrefs(videoSettings[4].key)));
     }
 }

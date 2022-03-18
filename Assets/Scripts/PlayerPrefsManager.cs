@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class SettingsManager : MonoBehaviour
+public class PlayerPrefsManager : MonoBehaviour
 {
-    private GameObject framesPerSecond;
+   //public GameObject framesPerSecond;
 
     void Start()
     {
-        framesPerSecond = FindObjectOfType<FramesPerSecond>().gameObject;
+        //SetShowFps(bool.Parse(LoadPrefs("Show FPS")));
     }
 
     public void SavePrefs(string key, string value)
@@ -78,11 +79,11 @@ public class SettingsManager : MonoBehaviour
     {
         if (isActivated)
         {
-            framesPerSecond.SetActive(true);
+            //framesPerSecond.SetActive(true);
         }
         else
         {
-            framesPerSecond.SetActive(false);
+            //framesPerSecond.SetActive(false);
         }
     }
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpGameObject : MonoBehaviour
+public class MoveUpGameObject : MonoBehaviour
 {
     public float velocity = 20;
 

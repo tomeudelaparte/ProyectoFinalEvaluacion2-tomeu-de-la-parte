@@ -195,11 +195,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36552c3d92ef29f4384ca79399dbea8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blastPrefab: {fileID: 8464517445442818275, guid: adbfa306c145461468fcee28e6e0cd78, type: 3}
   canon: {fileID: 5054094521373241083}
+  turret: {fileID: 6337714851307813699}
+  blastPrefab: {fileID: 8464517445442818275, guid: adbfa306c145461468fcee28e6e0cd78, type: 3}
   shootSFX: {fileID: 8300000, guid: 702800ca432bc6647a666fb8a0514d2c, type: 3}
-  healthBar: {fileID: 0}
-  shieldBar: {fileID: 0}
+  healthBarUI: {fileID: 0}
+  shieldBarUI: {fileID: 0}
 --- !u!82 &913570864584229838
 AudioSource:
   m_ObjectHideFlags: 0

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7726300966158374231}
   - component: {fileID: 7740177263249638057}
-  - component: {fileID: 392927933733798893}
   m_Layer: 0
   m_Name: Canon
   m_TagString: Untagged
@@ -53,18 +52,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &392927933733798893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 923973750655995957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e083979b32e4784d9f72501d8132775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2091160198512845220
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,11 +1175,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b67260d66d7d2214d9ea0ed9338f5ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canon: {fileID: 923973750655995957}
+  turret: {fileID: 2091160200478885261}
   blastPrefab: {fileID: 8464517445442818275, guid: 5db4f6fa60a2906448efe8132413ce83, type: 3}
+  healthBarUI: {fileID: 8249406249319954809}
+  damageTextPrefab: {fileID: 443159235300754033, guid: 4c18393915c85da42bd01a63f84ccfd2, type: 3}
   shootSFX: {fileID: 8300000, guid: 702800ca432bc6647a666fb8a0514d2c, type: 3}
   health: 1
-  healthBar: {fileID: 8249406249319954809}
-  damageTextPrefab: {fileID: 443159235300754033, guid: 4c18393915c85da42bd01a63f84ccfd2, type: 3}
 --- !u!195 &7301278604729908450
 NavMeshAgent:
   m_ObjectHideFlags: 0
