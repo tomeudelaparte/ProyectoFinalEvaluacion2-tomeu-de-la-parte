@@ -7,7 +7,9 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     private GameObject player;
+    public AudioSource gameManagerAudioSource;
 
+    public GameObject mainCamera;
     public GameObject playerInterface;
     public GameObject pauseMenu;
     public GameObject optionsMenu;
@@ -27,7 +29,7 @@ public class GameManager : MonoBehaviour
     private GameObject[] shieldItemsAvailable;
 
     private int waveIndex = 0;
-    private int[] enemiesPerWave = {5, 9};
+    private int[] enemiesPerWave = {5, 9, 14};
     private int enemiesLeft;
 
     public TextMeshPro[] levelNumberPanel;
@@ -39,6 +41,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        gameManagerAudioSource = FindObjectOfType<AudioSource>();
 
         enemySpawnPositionsNorth = GameObject.FindGameObjectsWithTag("SpawnPointN");
         enemySpawnPositionsSouth = GameObject.FindGameObjectsWithTag("SpawnPointS");
@@ -115,7 +118,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
     private void SpawnHealthShield()
     {
         healthItemsAvailable = GameObject.FindGameObjectsWithTag("HealthItem");
@@ -159,6 +161,8 @@ public class GameManager : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
+        gameManagerAudioSource.Stop();
+
         gameTimeText.text = gameTime.ToString("F1") + "s";
     }
 
@@ -172,6 +176,8 @@ public class GameManager : MonoBehaviour
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
+        gameManagerAudioSource.Stop();
     }
 
     public void ExitToMain()

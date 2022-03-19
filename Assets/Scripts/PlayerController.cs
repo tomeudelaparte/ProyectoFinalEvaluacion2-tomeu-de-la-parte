@@ -10,10 +10,9 @@ public class PlayerController : MonoBehaviour
     public GameObject canon;
     public GameObject turret;
     public GameObject blastPrefab;
-    public AudioClip shootSFX;
 
     private Rigidbody rigidbodyPlayer;
-    private AudioSource audioSourcePlayer;
+    public AudioSource[] audioSourcePlayer;
     private Animator canonAnimator;
 
     private float horizontalInput, verticalInput, mouseInputX, mouseInputY;
@@ -40,7 +39,7 @@ public class PlayerController : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
 
         rigidbodyPlayer = GetComponent<Rigidbody>();
-        audioSourcePlayer = GetComponent<AudioSource>();
+        audioSourcePlayer = GetComponents<AudioSource>();
         canonAnimator = canon.GetComponent<Animator>();
 
         shieldBarUI.GetComponentInChildren<Slider>().value = shield;
@@ -53,7 +52,7 @@ public class PlayerController : MonoBehaviour
         {
             canonAnimator.SetTrigger("Shoot");
 
-            audioSourcePlayer.PlayOneShot(shootSFX, 0.3f);
+            audioSourcePlayer[0].Play();
 
             WeaponShoot();
         }
@@ -104,6 +103,8 @@ public class PlayerController : MonoBehaviour
 
                 healthBarUI.GetComponentInChildren<Slider>().value = health;
 
+                audioSourcePlayer[2].Play();
+
                 Destroy(other.gameObject);
             }
         }
@@ -120,6 +121,8 @@ public class PlayerController : MonoBehaviour
                 {
                     shield += 1f;
                 }
+
+                audioSourcePlayer[2].Play();
 
                 shieldBarUI.GetComponentInChildren<Slider>().value = shield;
 

@@ -392,7 +392,7 @@ GameObject:
   - component: {fileID: 179889791843964534}
   - component: {fileID: 179889791843964535}
   m_Layer: 0
-  m_Name: Level
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -562,7 +562,7 @@ GameObject:
   - component: {fileID: 179889791844566186}
   - component: {fileID: 179889791844566187}
   m_Layer: 0
-  m_Name: Number
+  m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2029,7 +2029,7 @@ GameObject:
   - component: {fileID: 179889792392978010}
   - component: {fileID: 179889792392978011}
   m_Layer: 0
-  m_Name: Level
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2389,7 +2389,7 @@ GameObject:
   - component: {fileID: 179889792578643151}
   - component: {fileID: 179889792578643144}
   m_Layer: 0
-  m_Name: Level
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3004,7 +3004,7 @@ GameObject:
   - component: {fileID: 179889793128469231}
   - component: {fileID: 179889793128469224}
   m_Layer: 0
-  m_Name: Number
+  m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3382,7 +3382,7 @@ GameObject:
   - component: {fileID: 179889793324957788}
   - component: {fileID: 179889793324957789}
   m_Layer: 0
-  m_Name: Number
+  m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3552,7 +3552,7 @@ GameObject:
   - component: {fileID: 179889793333938919}
   - component: {fileID: 179889793333938912}
   m_Layer: 0
-  m_Name: Number
+  m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4102,7 +4102,7 @@ GameObject:
   - component: {fileID: 179889793742058962}
   - component: {fileID: 179889793742058963}
   m_Layer: 0
-  m_Name: Level
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -37,6 +37,8 @@ public class PauseMenu : MonoBehaviour
             playerInterface.SetActive(false);
             pauseMenu.SetActive(true);
 
+            gameManager.gameManagerAudioSource.Pause();
+
             isActivePause = true;
         }
         else
@@ -54,6 +56,8 @@ public class PauseMenu : MonoBehaviour
         playerInterface.SetActive(true);
         pauseMenu.SetActive(false);
         optionsMenu.SetActive(false);
+
+        gameManager.gameManagerAudioSource.Play();
 
         isActivePause = false;
     }

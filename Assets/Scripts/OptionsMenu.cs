@@ -6,163 +6,111 @@ using TMPro;
 
 public class OptionsMenu : MonoBehaviour
 {
-    [System.Serializable]
-    public class OptionClass
-    {
-        public GameObject option;
-        public string key;
-        public string value;
-    }
+    private PlayerPrefsManager playerPrefsManagerScript;
+    private SettingsManager settingsManagerScript;
 
-    [System.Serializable]
-    public class ResolutionClass
-    {
-        public int width;
-        public int height;
+    public TMP_Dropdown displayModeDropdown, resolutionDropdown;
+    public Toggle verticalSyncToggle;
+    public Slider framerateLimitSlider;
+    public Toggle showFPSToggle;
 
-        public string toString()
-        {
-            return width + " X " + height;
-        }
-    }
+    public Slider masterVolumeSlider, musicVolumeSlider, effectsVolumeSlider;
 
-    private PlayerPrefsManager settingsManager;
-    public TextMeshProUGUI sliderFramesText;
+    public Slider mouseSensivitySlider;
 
-    public List<OptionClass> videoSettings = new List<OptionClass>();
-    public List<OptionClass> audioSettings = new List<OptionClass>();
-
-    public List<ResolutionClass> resolutionList = new List<ResolutionClass>();
-    public List<string> displayModeList = new List<string>();
+    private string[] videoSettingsKeys = { "DISPLAY MODE", "RESOLUTION", "VERTICAL SYNC", "FPS LIMIT", "SHOW FPS" };
+    private string[] audioSettingsKeys = { "MASTER VOLUME", "MUSIC VOLUME", "EFFECTS VOLUME" };
+    private string[] controlSettingsKeys = { "MOUSE SENSIVITY" };
 
     void Start()
     {
-        settingsManager = FindObjectOfType<PlayerPrefsManager>();
+        playerPrefsManagerScript = FindObjectOfType<PlayerPrefsManager>();
+        settingsManagerScript = FindObjectOfType<SettingsManager>();
 
-        settingsManager.DeleteAll();
+        playerPrefsManagerScript.DeleteAll();
 
-        if (settingsManager.HasKey(videoSettings[0].key) == false)
-        {
-            settingsManager.DeleteAll();
+        settingsManagerScript.LoadResolutionsAvailable();
 
-            DefaultSettings();
-
-            ApplySettings();
-        }
-
-        LoadOptions();
+        LoadSettings();
+        ApplySettings();
     }
 
-    private void Update()
+    public void SaveSettings()
     {
-        sliderFramesText.text = videoSettings[3].option.GetComponentInChildren<Slider>().value.ToString();
-    }
+        playerPrefsManagerScript.SavePrefs(videoSettingsKeys[0], displayModeDropdown.value.ToString());
+        playerPrefsManagerScript.SavePrefs(videoSettingsKeys[1], resolutionDropdown.value.ToString());
+        playerPrefsManagerScript.SavePrefs(videoSettingsKeys[2], verticalSyncToggle.isOn.ToString());
+        playerPrefsManagerScript.SavePrefs(videoSettingsKeys[3], framerateLimitSlider.value.ToString());
+        playerPrefsManagerScript.SavePrefs(videoSettingsKeys[4], showFPSToggle.isOn.ToString());
 
-    public void SaveOptions()
-    {
-        SaveVideoSettings();
-        SaveAudioSettings();
+        playerPrefsManagerScript.SavePrefs(audioSettingsKeys[0], masterVolumeSlider.value.ToString());
+        playerPrefsManagerScript.SavePrefs(audioSettingsKeys[1], musicVolumeSlider.value.ToString());
+        playerPrefsManagerScript.SavePrefs(audioSettingsKeys[2], effectsVolumeSlider.value.ToString());
+
+        playerPrefsManagerScript.SavePrefs(controlSettingsKeys[0], mouseSensivitySlider.value.ToString());
 
         ApplySettings();
     }
 
-    public void LoadOptions()
+    public void LoadSettings()
     {
-        LoadVideoSettings();
-        LoadAudioSettings();
-    }
-
-    private void DefaultSettings()
-    {
-        DefaultVideoSettings();
-        DefaultAudioSettings();
-    }
-
-    private void LoadVideoSettings()
-    {
-        LoadListOptions();
-
-        videoSettings[0].option.GetComponentInChildren<TMP_Dropdown>().value = int.Parse(settingsManager.LoadPrefs(videoSettings[0].key));
-        videoSettings[1].option.GetComponentInChildren<TMP_Dropdown>().value = int.Parse(settingsManager.LoadPrefs(videoSettings[1].key));
-        videoSettings[2].option.GetComponentInChildren<Toggle>().isOn = bool.Parse(settingsManager.LoadPrefs(videoSettings[2].key));
-        videoSettings[3].option.GetComponentInChildren<Slider>().value = float.Parse(settingsManager.LoadPrefs(videoSettings[3].key));
-        videoSettings[4].option.GetComponentInChildren<Toggle>().isOn = bool.Parse(settingsManager.LoadPrefs(videoSettings[4].key));
-    }
-
-    private void LoadAudioSettings()
-    {
-        audioSettings[0].option.GetComponentInChildren<Slider>().value = float.Parse(settingsManager.LoadPrefs(audioSettings[0].key));
-        audioSettings[1].option.GetComponentInChildren<Slider>().value = float.Parse(settingsManager.LoadPrefs(audioSettings[1].key));
-        audioSettings[2].option.GetComponentInChildren<Slider>().value = float.Parse(settingsManager.LoadPrefs(audioSettings[2].key));
-    }
-
-    private void SaveVideoSettings()
-    {
-        settingsManager.SavePrefs(videoSettings[0].key, videoSettings[0].option.GetComponentInChildren<TMP_Dropdown>().value.ToString());
-        settingsManager.SavePrefs(videoSettings[1].key, videoSettings[1].option.GetComponentInChildren<TMP_Dropdown>().value.ToString());
-        settingsManager.SavePrefs(videoSettings[2].key, videoSettings[2].option.GetComponentInChildren<Toggle>().isOn.ToString());
-        settingsManager.SavePrefs(videoSettings[3].key, videoSettings[3].option.GetComponentInChildren<Slider>().value.ToString()); ;
-        settingsManager.SavePrefs(videoSettings[4].key, videoSettings[4].option.GetComponentInChildren<Toggle>().isOn.ToString());
-    }
-
-    private void SaveAudioSettings()
-    {
-        settingsManager.SavePrefs(audioSettings[0].key, audioSettings[0].option.GetComponentInChildren<Slider>().value.ToString());
-        settingsManager.SavePrefs(audioSettings[1].key, audioSettings[1].option.GetComponentInChildren<Slider>().value.ToString());
-        settingsManager.SavePrefs(audioSettings[2].key, audioSettings[2].option.GetComponentInChildren<Slider>().value.ToString());
-    }
-
-    private void DefaultVideoSettings()
-    {
-        foreach (OptionClass setting in videoSettings)
+        if (playerPrefsManagerScript.HasKey(videoSettingsKeys[0]))
         {
-            settingsManager.SavePrefs(setting.key, setting.value);
+            displayModeDropdown.value = int.Parse(playerPrefsManagerScript.LoadPrefs(videoSettingsKeys[0]));
+        }
+
+        if (playerPrefsManagerScript.HasKey(videoSettingsKeys[1]))
+        {
+            resolutionDropdown.value = int.Parse(playerPrefsManagerScript.LoadPrefs(videoSettingsKeys[1]));
+        }
+
+        if (playerPrefsManagerScript.HasKey(videoSettingsKeys[2]))
+        {
+            verticalSyncToggle.isOn = bool.Parse(playerPrefsManagerScript.LoadPrefs(videoSettingsKeys[2]));
+        }
+
+        if (playerPrefsManagerScript.HasKey(videoSettingsKeys[3]))
+        {
+            framerateLimitSlider.value = int.Parse(playerPrefsManagerScript.LoadPrefs(videoSettingsKeys[3]));
+        }
+
+        if (playerPrefsManagerScript.HasKey(videoSettingsKeys[4]))
+        {
+            showFPSToggle.isOn = bool.Parse(playerPrefsManagerScript.LoadPrefs(videoSettingsKeys[4]));
+        }
+
+        if (playerPrefsManagerScript.HasKey(audioSettingsKeys[0]))
+        {
+            masterVolumeSlider.value = float.Parse(playerPrefsManagerScript.LoadPrefs(audioSettingsKeys[0]));
+        }
+
+        if (playerPrefsManagerScript.HasKey(audioSettingsKeys[1]))
+        {
+            musicVolumeSlider.value = float.Parse(playerPrefsManagerScript.LoadPrefs(audioSettingsKeys[1]));
+        }
+
+        if (playerPrefsManagerScript.HasKey(audioSettingsKeys[2]))
+        {
+            effectsVolumeSlider.value = float.Parse(playerPrefsManagerScript.LoadPrefs(audioSettingsKeys[2]));
+        }
+
+        if (playerPrefsManagerScript.HasKey(controlSettingsKeys[0]))
+        {
+            mouseSensivitySlider.value = float.Parse(playerPrefsManagerScript.LoadPrefs(controlSettingsKeys[0]));
         }
     }
 
-    private void DefaultAudioSettings()
+    public void ApplySettings()
     {
-        foreach (OptionClass setting in audioSettings)
-        {
-            settingsManager.SavePrefs(setting.key, setting.value);
-        }
-    }
+        settingsManagerScript.SetScreen(displayModeDropdown.value, resolutionDropdown.value);
+        settingsManagerScript.SetVerticalSync(verticalSyncToggle.isOn);
+        settingsManagerScript.SetFramerateLimit(int.Parse(framerateLimitSlider.value.ToString()));
+        settingsManagerScript.SetShowFps(showFPSToggle.isOn);
 
-    private void LoadListOptions()
-    {
-        List<TMP_Dropdown.OptionData> list = new List<TMP_Dropdown.OptionData>();
+        settingsManagerScript.SetMasterVolume(masterVolumeSlider.value);
+        settingsManagerScript.SetMusicVolume(musicVolumeSlider.value);
+        settingsManagerScript.SetEffectsVolume(effectsVolumeSlider.value);
 
-        foreach (string display in displayModeList)
-        {
-
-            list.Add(new TMP_Dropdown.OptionData(display));
-        }
-
-        videoSettings[0].option.GetComponentInChildren<TMP_Dropdown>().AddOptions(list);
-
-
-        List<TMP_Dropdown.OptionData> list02 = new List<TMP_Dropdown.OptionData>();
-
-        foreach (ResolutionClass resolution in resolutionList)
-        {
-
-            list02.Add(new TMP_Dropdown.OptionData(resolution.toString()));
-        }
-
-        videoSettings[1].option.GetComponentInChildren<TMP_Dropdown>().AddOptions(list02);
-    }
-
-    private void ApplySettings()
-    {
-        settingsManager.SetScreenOptions(
-            resolutionList[int.Parse(settingsManager.LoadPrefs(videoSettings[1].key))].width,
-            resolutionList[int.Parse(settingsManager.LoadPrefs(videoSettings[1].key))].height,
-            int.Parse(settingsManager.LoadPrefs(videoSettings[0].key)));
-
-        settingsManager.SetMaxFrames(int.Parse(settingsManager.LoadPrefs(videoSettings[3].key)));
-
-        settingsManager.SetVerticalSync(bool.Parse(settingsManager.LoadPrefs(videoSettings[2].key)));
-
-        //settingsManager.SetShowFps(bool.Parse(settingsManager.LoadPrefs(videoSettings[4].key)));
+        settingsManagerScript.SetMouseSensivity(mouseSensivitySlider.value);
     }
 }

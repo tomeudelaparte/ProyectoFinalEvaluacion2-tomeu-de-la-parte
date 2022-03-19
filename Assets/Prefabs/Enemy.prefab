@@ -1180,7 +1180,6 @@ MonoBehaviour:
   blastPrefab: {fileID: 8464517445442818275, guid: 5db4f6fa60a2906448efe8132413ce83, type: 3}
   healthBarUI: {fileID: 8249406249319954809}
   damageTextPrefab: {fileID: 443159235300754033, guid: 4c18393915c85da42bd01a63f84ccfd2, type: 3}
-  shootSFX: {fileID: 8300000, guid: 702800ca432bc6647a666fb8a0514d2c, type: 3}
   health: 1
 --- !u!195 &7301278604729908450
 NavMeshAgent:
@@ -1255,10 +1254,10 @@ AudioSource:
   m_GameObject: {fileID: 8671137006389851428}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7267691124128584318, guid: 2aa31c3eaec503a44b78b440d0e86168, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 702800ca432bc6647a666fb8a0514d2c, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.4
   m_Pitch: 3
   Loop: 0
   Mute: 0

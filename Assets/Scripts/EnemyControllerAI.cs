@@ -12,7 +12,6 @@ public class EnemyControllerAI : MonoBehaviour
     public GameObject blastPrefab;
     public GameObject healthBarUI;
     public GameObject damageTextPrefab;
-    public AudioClip shootSFX;
 
     private GameObject player;
     private NavMeshAgent enemyAgent;
@@ -63,7 +62,7 @@ public class EnemyControllerAI : MonoBehaviour
 
         if (canShootWeapon && IsPlayerOnSight())
         {
-            audioSourceEnemy.PlayOneShot(shootSFX, 1f);
+            audioSourceEnemy.Play();
             WeaponShoot();
         }
 
@@ -122,6 +121,8 @@ public class EnemyControllerAI : MonoBehaviour
 
             health -= damage;
             healthBarUI.GetComponentInChildren<Slider>().value = health;
+
+            player.GetComponent<PlayerController>().audioSourcePlayer[1].Play();
 
             if (health < 1)
             {
