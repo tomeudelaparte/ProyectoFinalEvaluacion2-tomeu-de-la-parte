@@ -12,7 +12,15 @@ public class SettingsManager : MonoBehaviour
     public TextMeshProUGUI frameLimitText;
     public GameObject framerate;
 
+    private PlayerController playerScript;
     private Resolution[] resolutions;
+
+    public float mouseSensitivity = 2;
+
+    private void Start()
+    {
+        playerScript = FindObjectOfType<PlayerController>();
+    }
 
     public void LoadResolutionsAvailable()
     {
@@ -115,8 +123,8 @@ public class SettingsManager : MonoBehaviour
         audioMixer.SetFloat("EffectsVolume", volume);
     }
 
-    public void SetMouseSensivity(float sensivity)
+    public void SetMouseSensitivity(float sensitivity)
     {
-        //
+        mouseSensitivity = sensitivity;
     }
 }

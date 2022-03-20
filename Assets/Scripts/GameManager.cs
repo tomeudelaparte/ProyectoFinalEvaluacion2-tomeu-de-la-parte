@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviour
     private int enemiesLeft;
 
     public TextMeshPro[] levelNumberPanel;
+    public TextMeshProUGUI currentLevelUI;
+    public TextMeshProUGUI enemiesLeftUI;
+
     public TextMeshProUGUI gameTimeText;
 
     public bool isGameOver, isObjectiveComplete;
@@ -41,7 +44,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        gameManagerAudioSource = FindObjectOfType<AudioSource>();
+        gameManagerAudioSource = GetComponent<AudioSource>();
 
         enemySpawnPositionsNorth = GameObject.FindGameObjectsWithTag("SpawnPointN");
         enemySpawnPositionsSouth = GameObject.FindGameObjectsWithTag("SpawnPointS");
@@ -55,6 +58,8 @@ public class GameManager : MonoBehaviour
         objectiveCompletePanel.SetActive(false);
         gameOverPanel.SetActive(false);
 
+        gameManagerAudioSource.Play();
+
         isGameOver = false;
         isObjectiveComplete = false;
 
@@ -62,6 +67,13 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
 
         Time.timeScale = 1;
+
+        foreach (TextMeshPro level in levelNumberPanel)
+        {
+            level.text = (waveIndex + 1).ToString("D2");
+        }
+
+        currentLevelUI.text = (waveIndex + 1).ToString("D2");
 
         SpawnEnemyWave(enemiesPerWave[waveIndex]);
 
@@ -76,15 +88,19 @@ public class GameManager : MonoBehaviour
         {
             enemiesLeft = FindObjectsOfType<EnemyControllerAI>().Length;
 
+            enemiesLeftUI.text = enemiesLeft.ToString();
+
             if (enemiesLeft <= 0)
             {
                 waveIndex++;
 
                 if (waveIndex < enemiesPerWave.Length)
                 {
+                    currentLevelUI.text = (waveIndex + 1).ToString("D2");
+
                     foreach (TextMeshPro level in levelNumberPanel)
                     {
-                        level.text = "0" + (waveIndex + 1);
+                        level.text = (waveIndex + 1).ToString("D2");
                     }
 
                     SpawnHealthShield();

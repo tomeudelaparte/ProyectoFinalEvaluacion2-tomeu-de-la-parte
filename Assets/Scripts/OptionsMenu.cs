@@ -27,12 +27,10 @@ public class OptionsMenu : MonoBehaviour
         playerPrefsManagerScript = FindObjectOfType<PlayerPrefsManager>();
         settingsManagerScript = FindObjectOfType<SettingsManager>();
 
-        playerPrefsManagerScript.DeleteAll();
-
         settingsManagerScript.LoadResolutionsAvailable();
 
         LoadSettings();
-        ApplySettings();
+        SaveSettings();
     }
 
     public void SaveSettings()
@@ -111,6 +109,6 @@ public class OptionsMenu : MonoBehaviour
         settingsManagerScript.SetMusicVolume(musicVolumeSlider.value);
         settingsManagerScript.SetEffectsVolume(effectsVolumeSlider.value);
 
-        settingsManagerScript.SetMouseSensivity(mouseSensivitySlider.value);
+        settingsManagerScript.SetMouseSensitivity(mouseSensivitySlider.value);
     }
 }

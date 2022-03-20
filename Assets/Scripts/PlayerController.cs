@@ -6,24 +6,26 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     private GameManager gameManager;
+    private SettingsManager settingsManager;
 
     public GameObject canon;
     public GameObject turret;
     public GameObject blastPrefab;
+    public GameObject healthBarUI, shieldBarUI;
+    public AudioSource[] audioSourcePlayer;
 
     private Rigidbody rigidbodyPlayer;
-    public AudioSource[] audioSourcePlayer;
     private Animator canonAnimator;
 
     private float horizontalInput, verticalInput, mouseInputX, mouseInputY;
-    private float mouseSensitivity = 2;
 
-    public GameObject healthBarUI, shieldBarUI;
+    private float mouseSensitivity = 0;
+
     private float health = 1f;
     private float shield = 1f;
 
     private float speedMovement = 50f;
-    private float speedRotation = 70f;
+    private float speedRotation = 80f;
     private float maxVelocity = 50f;
 
     private bool canShootWeapon = true;
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        settingsManager = FindObjectOfType<SettingsManager>();
 
         rigidbodyPlayer = GetComponent<Rigidbody>();
         audioSourcePlayer = GetComponents<AudioSource>();
@@ -44,10 +47,17 @@ public class PlayerController : MonoBehaviour
 
         shieldBarUI.GetComponentInChildren<Slider>().value = shield;
         healthBarUI.GetComponentInChildren<Slider>().value = health;
+
+        rigidbodyPlayer.centerOfMass = new Vector3(0, -1, 0);
     }
 
     void Update()
     {
+        if (mouseSensitivity <= 0)
+        {
+            mouseSensitivity = settingsManager.mouseSensitivity;
+        }
+
         if (Input.GetKey(KeyCode.Space) && canShootWeapon)
         {
             canonAnimator.SetTrigger("Shoot");
@@ -60,21 +70,20 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
+        horizontalInput = Input.GetAxis("Horizontal") * Time.deltaTime;
         verticalInput = Input.GetAxis("Vertical");
 
-        mouseInputX = Input.GetAxis("Mouse X") * mouseSensitivity;
-        mouseInputY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+        mouseInputX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        mouseInputY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        turret.transform.Rotate(Vector3.up * speedRotation * mouseInputX);
 
-        transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * horizontalInput);
-        turret.transform.Rotate(Vector3.up * speedRotation * Time.deltaTime * mouseInputX);
-
-        xRotation -= mouseInputY * speedRotation * Time.deltaTime;
+        xRotation -= mouseInputY * speedRotation;
         xRotation = Mathf.Clamp(xRotation, -15f, 15f);
         canon.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
 
         if (IsGrounded())
         {
+            transform.Rotate(Vector3.up * speedRotation * horizontalInput);
             rigidbodyPlayer.AddRelativeForce(Vector3.forward * speedMovement * verticalInput, ForceMode.VelocityChange);
 
             if (rigidbodyPlayer.velocity.magnitude > maxVelocity)
@@ -134,6 +143,8 @@ public class PlayerController : MonoBehaviour
         {
             if (isColliding) return;
             isColliding = true;
+
+            audioSourcePlayer[3].Play();
 
             if (shield > 0)
             {

@@ -43,22 +43,17 @@ public class PauseMenu : MonoBehaviour
         }
         else
         {
-            exit();
+            Time.timeScale = 1;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Confined;
+
+            playerInterface.SetActive(true);
+            pauseMenu.SetActive(false);
+            optionsMenu.SetActive(false);
+
+            gameManager.gameManagerAudioSource.Play();
+
+            isActivePause = false;
         }
-    }
-
-    public void exit()
-    {
-        Time.timeScale = 1;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Confined;
-
-        playerInterface.SetActive(true);
-        pauseMenu.SetActive(false);
-        optionsMenu.SetActive(false);
-
-        gameManager.gameManagerAudioSource.Play();
-
-        isActivePause = false;
     }
 }
