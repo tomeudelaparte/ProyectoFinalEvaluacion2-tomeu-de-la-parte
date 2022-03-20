@@ -17,24 +17,28 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rigidbodyPlayer;
     private Animator canonAnimator;
 
-    private float horizontalInput, verticalInput, mouseInputX, mouseInputY;
+    private float[] damageHealthRange = { 0.20f, 0.36f };
+    private float[] damageShieldRange = { 0.30f, 0.36f };
 
-    private float mouseSensitivity = 0;
+    private float healthItemValue = 0.5f;
+    private float shieldItemValue = 0.75f;
 
-    private float health = 1f;
-    private float shield = 1f;
+    private float horizontalInput, verticalInput, mouseInputX, mouseInputY, xRotation;
+
+    public float mouseSensitivity = 0;
+
+    private float healthPlayer = 1f;
+    private float shieldPlayer = 1f;
 
     private float speedMovement = 50f;
     private float speedRotation = 80f;
     private float maxVelocity = 50f;
 
-    private bool canShootWeapon = true;
-    private float shootSpeed = 0.25f;
+    private bool shootTrigger = true;
+    private float shootCooldown = 0.25f;
 
     private float groundDistance = 7f;
-    private bool isColliding = false;
-
-    private float xRotation;
+    private bool isBlastColliding = false;
 
     private void Start()
     {
@@ -45,20 +49,15 @@ public class PlayerController : MonoBehaviour
         audioSourcePlayer = GetComponents<AudioSource>();
         canonAnimator = canon.GetComponent<Animator>();
 
-        shieldBarUI.GetComponentInChildren<Slider>().value = shield;
-        healthBarUI.GetComponentInChildren<Slider>().value = health;
+        shieldBarUI.GetComponentInChildren<Slider>().value = shieldPlayer;
+        healthBarUI.GetComponentInChildren<Slider>().value = healthPlayer;
 
         rigidbodyPlayer.centerOfMass = new Vector3(0, -1, 0);
     }
 
     void Update()
     {
-        if (mouseSensitivity <= 0)
-        {
-            mouseSensitivity = settingsManager.mouseSensitivity;
-        }
-
-        if (Input.GetKey(KeyCode.Space) && canShootWeapon)
+        if (Input.GetKey(KeyCode.Space) && shootTrigger)
         {
             canonAnimator.SetTrigger("Shoot");
 
@@ -66,6 +65,8 @@ public class PlayerController : MonoBehaviour
 
             WeaponShoot();
         }
+        
+        mouseSensitivity = settingsManager.mouseSensitivity;
     }
 
     private void FixedUpdate()
@@ -99,18 +100,18 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("HealthItem"))
         {
-            if (health < 1f)
+            if (healthPlayer < 1f)
             {
-                if (health + 0.5f >= 1f)
+                if (healthPlayer + healthItemValue >= 1f)
                 {
-                    health = 1f;
+                    healthPlayer = 1f;
                 }
                 else
                 {
-                    health += 0.5f;
+                    healthPlayer += healthItemValue;
                 }
 
-                healthBarUI.GetComponentInChildren<Slider>().value = health;
+                healthBarUI.GetComponentInChildren<Slider>().value = healthPlayer;
 
                 audioSourcePlayer[2].Play();
 
@@ -120,20 +121,20 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.CompareTag("ShieldItem"))
         {
-            if (shield < 1f)
+            if (shieldPlayer < 1f)
             {
-                if (shield + 1f >= 1f)
+                if (shieldPlayer + shieldItemValue >= 1f)
                 {
-                    shield = 1f;
+                    shieldPlayer = 1f;
                 }
                 else
                 {
-                    shield += 1f;
+                    shieldPlayer += shieldItemValue;
                 }
 
                 audioSourcePlayer[2].Play();
 
-                shieldBarUI.GetComponentInChildren<Slider>().value = shield;
+                shieldBarUI.GetComponentInChildren<Slider>().value = shieldPlayer;
 
                 Destroy(other.gameObject);
             }
@@ -141,24 +142,24 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.CompareTag("EnemyBlast"))
         {
-            if (isColliding) return;
-            isColliding = true;
+            if (isBlastColliding) return;
+            isBlastColliding = true;
 
             audioSourcePlayer[3].Play();
 
-            if (shield > 0)
+            if (shieldPlayer > 0)
             {
-                shield -= Mathf.Round(Random.Range(0.30f, 0.36f) * 100f) / 100f;
-                shieldBarUI.GetComponentInChildren<Slider>().value = shield;
+                shieldPlayer -= Mathf.Round(Random.Range(damageShieldRange[0], damageShieldRange[1]) * 100f) / 100f;
+                shieldBarUI.GetComponentInChildren<Slider>().value = shieldPlayer;
 
             }
-            else if (health > 0)
+            else if (healthPlayer > 0)
             {
-                health -= Mathf.Round(Random.Range(0.20f, 0.36f) * 100f) / 100f;
-                healthBarUI.GetComponentInChildren<Slider>().value = health;
+                healthPlayer -= Mathf.Round(Random.Range(damageHealthRange[0], damageHealthRange[1]) * 100f) / 100f;
+                healthBarUI.GetComponentInChildren<Slider>().value = healthPlayer;
             }
-
-            if (health <= 0)
+           
+            if (healthPlayer <= 0)
             {
                 gameManager.GameOver();
             }
@@ -170,7 +171,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator TriggerEnterOn()
     {
         yield return new WaitForEndOfFrame();
-        isColliding = false;
+        isBlastColliding = false;
     }
 
     private void WeaponShoot()
@@ -184,9 +185,9 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator WeaponCooldown()
     {
-        canShootWeapon = false;
-        yield return new WaitForSeconds(shootSpeed);
-        canShootWeapon = true;
+        shootTrigger = false;
+        yield return new WaitForSeconds(shootCooldown);
+        shootTrigger = true;
     }
 
     private bool IsGrounded()

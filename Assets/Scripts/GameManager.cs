@@ -20,6 +20,13 @@ public class GameManager : MonoBehaviour
     public GameObject healthPrefab;
     public GameObject shieldPrefab;
 
+    public TextMeshPro[] levelNumberPanel;
+    public TextMeshProUGUI currentLevelUI;
+    public TextMeshProUGUI enemiesLeftUI;
+    public TextMeshProUGUI gameTimeText;
+
+    public bool isGameOver, isObjectiveComplete;
+
     private GameObject[] enemySpawnPositionsNorth;
     private GameObject[] enemySpawnPositionsSouth;
     private GameObject[] healthSpawnPositions;
@@ -29,16 +36,9 @@ public class GameManager : MonoBehaviour
     private GameObject[] shieldItemsAvailable;
 
     private int waveIndex = 0;
-    private int[] enemiesPerWave = {5, 9, 14};
+    private int[] enemiesPerWave = { 5, 9, 14 };
     private int enemiesLeft;
 
-    public TextMeshPro[] levelNumberPanel;
-    public TextMeshProUGUI currentLevelUI;
-    public TextMeshProUGUI enemiesLeftUI;
-
-    public TextMeshProUGUI gameTimeText;
-
-    public bool isGameOver, isObjectiveComplete;
     private float gameTime;
 
     void Start()
@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    if(!isObjectiveComplete)
+                    if (!isObjectiveComplete)
                     {
                         isObjectiveComplete = true;
 
@@ -204,5 +204,4 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
-
 }

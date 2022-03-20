@@ -18,17 +18,18 @@ public class EnemyControllerAI : MonoBehaviour
     private AudioSource audioSourceEnemy;
     private Animator canonAnimator;
 
-    public float health = 1f;
+    private float enemyHealth = 1f;
 
-    private float shootSpeed = 2f;
-    private bool canShootWeapon = true;
+    private float[] damageHealthRange = { 0.20f, 0.36f };
 
-    private Vector3 directionToPlayer, newPosition;
+    private float shootCooldown = 2f;
+    private bool shootTrigger = true;
 
     private float playerDetectionDistance = 2000f;
 
-    private bool isColliding = false;
+    private bool isBlastColliding = false;
 
+    private Vector3 directionToPlayer, newPosition;
     private float damage, distance;
 
     void Start()
@@ -39,7 +40,7 @@ public class EnemyControllerAI : MonoBehaviour
 
         canonAnimator = canon.GetComponent<Animator>();
 
-        healthBarUI.GetComponentInChildren<Slider>().value = health;
+        healthBarUI.GetComponentInChildren<Slider>().value = enemyHealth;
     }
 
     void Update()
@@ -60,7 +61,7 @@ public class EnemyControllerAI : MonoBehaviour
             }
         }
 
-        if (canShootWeapon && IsPlayerOnSight())
+        if (shootTrigger && IsPlayerOnSight())
         {
             audioSourceEnemy.Play();
             WeaponShoot();
@@ -84,9 +85,9 @@ public class EnemyControllerAI : MonoBehaviour
 
     private IEnumerator WeaponCooldown()
     {
-        canShootWeapon = false;
-        yield return new WaitForSeconds(shootSpeed);
-        canShootWeapon = true;
+        shootTrigger = false;
+        yield return new WaitForSeconds(shootCooldown);
+        shootTrigger = true;
     }
 
     private bool IsPlayerOnSight()
@@ -111,25 +112,25 @@ public class EnemyControllerAI : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PlayerBlast"))
         {
-            if (isColliding) return;
-            isColliding = true;
+            if (isBlastColliding) return;
+            isBlastColliding = true;
 
-            damage = Mathf.Round(Random.Range(0.20f, 0.36f) * 100f) / 100f;
+            damage = Mathf.Round(Random.Range(damageHealthRange[0], damageHealthRange[1]) * 100f) / 100f;
 
             GameObject textDamage = Instantiate(damageTextPrefab, other.transform.position, damageTextPrefab.transform.rotation);
             textDamage.transform.GetChild(0).GetComponent<TextMeshPro>().text = "-" + damage.ToString("F2");
 
-            health -= damage;
-            healthBarUI.GetComponentInChildren<Slider>().value = health;
+            enemyHealth -= damage;
+            healthBarUI.GetComponentInChildren<Slider>().value = enemyHealth;
 
             player.GetComponent<PlayerController>().audioSourcePlayer[1].Play();
 
-            if (health < 1)
+            if (enemyHealth < 1)
             {
                 healthBarUI.SetActive(true);
             }
 
-            if (health <= 0)
+            if (enemyHealth <= 0)
             {
                 Destroy(gameObject);
             }
@@ -141,6 +142,6 @@ public class EnemyControllerAI : MonoBehaviour
     private IEnumerator TriggerEnterOn()
     {
         yield return new WaitForEndOfFrame();
-        isColliding = false;
+        isBlastColliding = false;
     }
 }

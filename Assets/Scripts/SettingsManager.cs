@@ -33,7 +33,7 @@ public class SettingsManager : MonoBehaviour
 
         int currentResolutionIndex = 0;
 
-        for (int i = 0; i < resolutions.Length-3; i++)
+        for (int i = 0; i < resolutions.Length - 3; i++)
         {
             string option = resolutions[i].width + " x " + resolutions[i].height;
             options.Add(option);
