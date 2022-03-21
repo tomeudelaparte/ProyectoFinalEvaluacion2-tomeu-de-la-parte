@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space) && shootTrigger)
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Mouse0) && shootTrigger)
         {
             canonAnimator.SetTrigger("Shoot");
 
@@ -91,6 +91,11 @@ public class PlayerController : MonoBehaviour
             {
                 rigidbodyPlayer.velocity = rigidbodyPlayer.velocity.normalized * maxVelocity;
             }
+        }
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            rigidbodyPlayer.rotation = Quaternion.identity;
         }
 
         rigidbodyPlayer.AddForce(Vector3.up * -100);
