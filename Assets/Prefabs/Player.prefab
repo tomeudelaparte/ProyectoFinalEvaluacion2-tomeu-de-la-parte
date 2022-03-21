@@ -199,6 +199,7 @@ MonoBehaviour:
   healthBarUI: {fileID: 0}
   shieldBarUI: {fileID: 0}
   audioSourcePlayer: []
+  mouseSensitivity: 0
 --- !u!54 &5270706110942098329
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -227,7 +228,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 7267691124128584318, guid: 2aa31c3eaec503a44b78b440d0e86168, type: 2}
   m_audioClip: {fileID: 8300000, guid: 702800ca432bc6647a666fb8a0514d2c, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.2
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -321,10 +322,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 7267691124128584318, guid: 2aa31c3eaec503a44b78b440d0e86168, type: 2}
-  m_audioClip: {fileID: 8300000, guid: f74d2fb88e311734b85457b90dae198a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 791bf247cd5802448b33a0f368fb9a5c, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.4
-  m_Pitch: 1
+  m_Volume: 0.1
+  m_Pitch: 3
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -515,7 +516,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 7267691124128584318, guid: 2aa31c3eaec503a44b78b440d0e86168, type: 2}
   m_audioClip: {fileID: 8300000, guid: e1332bb2a2ea9c543a2fb599a9346987, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.6
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -636,7 +637,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.0359507
+  m_Radius: 2.1
   m_Center: {x: -5, y: -1, z: -5}
 --- !u!135 &410526238
 SphereCollider:
@@ -649,7 +650,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.065529
+  m_Radius: 2.1
   m_Center: {x: 5, y: -1, z: -5}
 --- !u!135 &410526239
 SphereCollider:
@@ -662,7 +663,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.0655365
+  m_Radius: 2.1
   m_Center: {x: -5, y: -1, z: 5}
 --- !u!135 &410526240
 SphereCollider:
@@ -675,7 +676,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.065536
+  m_Radius: 2.1
   m_Center: {x: 5, y: -1, z: 5}
 --- !u!1 &6337714851307813699
 GameObject:
